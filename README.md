@@ -31,7 +31,7 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-1.asciidoc). Then clone the reposi
 
 ## The List of HIPs
 
-| Number                      | Title                          | Author     | Type         | Status     |
-| --------------------------  | ------------------------------ | ---------- | ------------ | ---------- |
-| [1](hips/hip-1.asciidoc)    | The HIP Guidelines             | Alex Wu    | information  | Draft      |
+| Number | Title                                          | Author     | Type         | Status     |
+| -----  | ---------------------------------------------- | ---------- | ------------ | ---------- |
+| 1      | [The HIP Guidelines](hips/hip-0001.asciidoc)   | Alex Wu    | information  | Draft      |
 
