@@ -5,6 +5,7 @@ In general, we use pull request number of HIP repostory as the HIP number, When 
     HIP: <to be assigned>
     Title: <HIP title>
     Author: <list of authors' names and optionally, email addresses>
+    Category: <Core | Networking | Interface | Application | Information | Process>
     Status: < Draft | Accepted | Deferred | Rejected | Withdrawn | Final | Superseded >
     Created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
     Requires (*optional): <HIP number(s)>
