@@ -28,8 +28,8 @@ This is the core block change in private network ,so it will need remove the old
 It run will in the private network,when mining new block,it don't occur any exceptions.
 
 ## Implementation
+see https://git.diabin.com/HLC/nox/pulls/8
 
-    see https://git.diabin.com/HLC/nox/pulls/8
 ## Test Cases
 
 In the git mining-dev repo,can test.
