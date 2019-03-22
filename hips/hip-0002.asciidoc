@@ -4,30 +4,58 @@
     Author: Alex Wu <dindinw@users.noreply.github.com>
     Status: Draft
     Category: Information
-    Created:
+    Created: 2019/03/22
 
 ## Abstract
 
-A short (~200 word) description of the technical issue being addressed.
+The Definition of the terminology and naming conventions are used in the HalalChain.
 
 ## Motivation
-clearly explain why the HIP is needed or the existing protocol specification is inadequate to address the problem. submissions without sufficient motivation may be rejected outright.
 
 ## Specification
-The technical specification should describe the syntax and semantics of any new feature. 
+
+### Currency Unit
+
+|===
+| Term  | Abv.   | Definition
+| DATE  | Da     | The minimum currency unit of the HLC
+|===
+
+### Time Unit
+
+|===
+| Unit  | range           | Definition
+| surah | 114 blocks      | maturity range of blocks
+| epoch | 7 surah         | coinbase matrurity, after 7 surah, the coinbase reward can be spent
+|===
+
+### Hawala (The Transfer of Trust)
+
+**Hawala** is the core backend/network name
+
+### Network
+
+|===
+| Network            | Name
+| blockchain testnet | Hikma  (Wisdom)
+| blockdag   testnet | Illum  (Light)
+|===
+
+### Genesis Block/Fatiha Block
+
+|===
+| Options | Text
+| https://en.wikipedia.org/wiki/Alhambra#History[Alhambra's motto] | there is no victor but God.
+| https://quran.com/1[al-fatihah] | 1:1 In the name of Allah ... 1:7
+| https://en.wikipedia.org/wiki/Shahada[Shahada] | There is no god but God. Muhammad is the messenger of God.
+|===
 
 ## Backwards Compatibility
-All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The HIP must explain how the author proposes to deal with these incompatibilities. HIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
-
-## Use Cases
-The Use case for an implementation are mandatory in most case. sometimes it exchangable with test cases.
-
-## Implementation
-The implementations must be completed before any HIP is given status "Final", but it need not be completed before the HIP is accepted.
-
-## Test Cases
-Test cases for an implementation are mandatory in most case. it can choose to include links to test cases if applicable.
 
 ## See also
-The references links might list here
 
+## Version History
+
+* 2019/01/08 Initial naming
+* 2019/01/11 Draft version 1
+* 2019/03/22 format to HIP
