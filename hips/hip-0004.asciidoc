@@ -9,7 +9,7 @@
 Define the naming of Block DAG Framework in the HalalChain
 
 ## Motivation
-In order to respond to the call of the times and facilitate the wide dissemination and exchange of Block DAG Framework in the HalalChain, We need to define a distinctive name for it.
+In order to respond to the call of the times and facilitate the wide dissemination and exchange of Block DAG Framework in the HalalChain, we need to define a distinctive name for it.
 
 ## Specification
 ### Block DAG Framework
@@ -28,7 +28,7 @@ But if you add a timeline and look at it from the perspective of the main chain,
 
 image::hip-0002/dag1.png[]
 
-You'll find that all the blocks move around the main chain. And I remember when we were young in geography class, The teacher told us that eight planets in the solar system run around the sun. Notice that interesting things will happen, Did you find that they are very similar?
+You'll find that all the blocks move around the main chain. And I remember when we were young in geography class, The teacher told us that eight planets in the solar system run around the sun. Notice that interesting things will happen, if you think about the real trajectory of the entire solar system, Did you find that they are very similar?
 
 image::hip-0002/solarsys.gif[]
 
