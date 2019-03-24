@@ -1,31 +1,37 @@
     HIP: 4
-    Title: 
+    Title: Define the naming of Block DAG Framework in the HalalChain 
     Author: Jin <lochjin@gmail.com>
     Category: Core
     Status: Draft
     Created: 2019/03/22
 
 ## Abstract
-A short (~200 word) description of the technical issue being addressed.
+Define the naming of Block DAG Framework in the HalalChain
 
 ## Motivation
-clearly explain why the HIP is needed or the existing protocol specification is inadequate to address the problem. submissions without sufficient motivation may be rejected outright.
+In order to respond to the call of the times and facilitate the wide dissemination and exchange of Block DAG Framework in the HalalChain, We need to define a distinctive name for it.
 
 ## Specification
-The technical specification should describe the syntax and semantics of any new feature. 
-
-## Backwards Compatibility
-All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The HIP must explain how the author proposes to deal with these incompatibilities. HIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
-
-## Use Cases
-The Use case for an implementation are mandatory in most case. sometimes it exchangable with test cases.
+### Block DAG Framework
+|===
+| ID | Name | Reason | Score | State
+| 1 | Solar | Solar System | 1 | Draft
+| 2 | Apollo | Sun god | 1 | Draft
+|===
 
 ## Implementation
-The implementations must be completed before any HIP is given status "Final", but it need not be completed before the HIP is accepted.
+The most important technology used in our framework is DAG algorithm, and we all know that DAG is a directed acyclic graph.
 
-## Test Cases
-Test cases for an implementation are mandatory in most case. it can choose to include links to test cases if applicable.
+image::hip-0002/dag0.jpg[]
+
+But if you add a timeline and look at it from the perspective of the main chain, it might look like this.
+
+image::hip-0002/dag1.png[]
+
+You'll find that all the blocks move around the main chain. And I remember when we were young in geography class, The teacher told us that eight planets in the solar system run around the sun. Notice that interesting things will happen, Did you find that they are very similar?
+
+image::hip-0002/solarsys.gif[]
+
 
 ## See also
-The references links might list here
 
