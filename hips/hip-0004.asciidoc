@@ -1,7 +1,7 @@
     HIP: 4
     Title: Define the naming of Block DAG Framework in the HalalChain 
     Author: Jin <lochjin@gmail.com>
-    Category: Core
+    Category: Information
     Status: Draft
     Created: 2019/03/22
 
@@ -22,15 +22,15 @@ In order to respond to the call of the times and facilitate the wide disseminati
 ## Implementation
 The most important technology used in our framework is DAG algorithm, and we all know that DAG is a directed acyclic graph.
 
-image::hip-0002/dag0.jpg[]
+image::hip-0004/dag0.jpg[]
 
 But if you add a timeline and look at it from the perspective of the main chain, it might look like this.
 
-image::hip-0002/dag1.png[]
+image::hip-0004/dag1.png[]
 
-You'll find that all the blocks move around the main chain. And I remember when we were young in geography class, The teacher told us that eight planets in the solar system run around the sun. Notice that interesting things will happen, if you think about the real trajectory of the entire solar system. Did you find that they are very similar?
+You'll find that all the blocks move around the main chain. And I remember when we were young in geography class, the teacher told us that eight planets in the solar system run around the sun. Notice that interesting things will happen, if you think about the real trajectory of the entire solar system. Did you find that they are very similar?
 
-image::hip-0002/solarsys.gif[]
+image::hip-0004/solarsys.gif[]
 
 
 ## See also
