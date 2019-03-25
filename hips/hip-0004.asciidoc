@@ -3,7 +3,7 @@
     Author: Jin <lochjin@gmail.com>
     Category: Information
     Status: Draft
-    Created: 2019/03/22
+    Created: 2019-03-22
 
 ## Abstract
 Define the naming of Block DAG Framework in the HalalChain
