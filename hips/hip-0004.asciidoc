@@ -8,6 +8,16 @@
 # Abstract
 HLC adopts Hybrid consensus that combines SPECTRE and GHOSTDAG (Phantom) in order to achieve fast confirmation and high throughput.
 
+
+## Introduction
+
+Block DAG, as the name implies, each node of the ledger is a block. It is not rigorous whether the node of the ledger is a block or the transaction, because the transaction can also be seen as a block with one transaction. Therefore, Block DAG represents a completely different DAG model, which is also a narrow definition. Actually, what Block DAG wants to solve is the problem of the orphan block rate in blockchain, that is, the blocks eliminated and discarded can also contribute to the throughput. To scale Bitcoin, the most intuitive idea is to increase the block rate or increase the block size. Certainly, Nakamoto will think of it but he doesn't do it, because both of them will increase the fork rate. Under the longest chain competition model of Bitcoin, the high fork rate represents the power required to overturn the longest fork may not be far less 50%. So Bitcoin is for the sake of safety and sacrifices the scalability. Block DAG is to solve the problem of how to increase the scalability without sacrificing security. Since Block DAG is the simplest and most intuitive solution of scalability based on the classic bitcoin, there is almost no change to any setting of Bitcoin, namely, the whole node through the computing power of free participation realizes the complete decentralization, 50% security guarantee，which is different from other scalability schemes such as sharding and layering. We call it the classic blockchain setting. And this DAG protocol that satisfies the classic blockchain setting is collectively called the "Block DAG protocol".  
+
+image::hip-0004/b.png[alt="dag",width=513]
+
+From the diagram, it can be seen that every block confirms all the unconfirmed blocks, i.e. tips, and all the blocks that can be reached from one block are deemed prior to this block
+
+
 ## SPECTRE  
 
 SPECTRE is a block-DAG based protocol  that achieves fast comfirmation and high throughput with 50% attack resilience.  SPECTRE guarantees safety, which means  a transaction is unlikely to be reverse once it is accepted. Also, SPECTRE guarantees fast confirmations for honest users rather than all users, so it is deemed as weak liveness.
@@ -34,6 +44,7 @@ An example on how a new block, number 12, votes:
 > block 1~4 vote $x \prec y$ according to rule 3
 
 Now all the blocks in block 12' past have votes, 10 votes on x over 2 votes on y, so block 12 follows the majority and votes $x \prec y$ as well.
+
 
 ## PHANTOM
 
