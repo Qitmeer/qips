@@ -34,4 +34,4 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-1.asciidoc). Then clone the reposi
 | Number | Title                                          | Author     | Type         | Status     |
 | -----  | ---------------------------------------------- | ---------- | ------------ | ---------- |
 | 1      | [The HIP Guidelines](hips/hip-0001.asciidoc)   | Alex Wu    | information  | Draft      |
-
+| 5      | [Compack storage in linearly ordered block DAG](hips/hip-0005.md)   | Huangjin Zhou    | core  | Draft      |
