@@ -6,7 +6,17 @@
     Created: 2019-03-20
 
 ## Abstract
-A new Proof-of-Work algorithm to replace Blake2B that based on a graph-theoretic system.
+Proof-of-Work(PoW) is used to confirm transactions and produces new blocks,
+therefore it is a very important engine in PoW cryptocurrencies.
+PoW must not enable a participant to have a significant advantage over another participant.
+That is why Satoshi said: "Proof-of-work is essentially one-CPU-one-vote."
+
+However, most widely used proof-of-work algorithms, such as SHA-256, Blake2b, Scrypt,
+are more efficient on ASIC devices when compared to CPUs and GPUs.
+This can lead to ASIC owners posses a much larger voting power than CPU and GPU owners.
+It violates the “one-CPU-one-vote” principle.
+
+We introduce Cuckoo-Cycle-PoW ,a graph-theoretic proof-of-work algorithm. It is ASIC resistant.
 
 Cuckoo-Cycle-PoW is designed to find certain subgraphs in large pseudo-random graphs.
 This algorithm that we hope turns out to be ASIC resistant.
@@ -156,7 +166,7 @@ The representative coin is Ethereum.
 It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 1.2 times that of mainstream GPU miners.
 But the price of an Antminer E3 miner is only 3,000 RMB. Far less than the price of assembling a GPU miner with the same hashrate.
 
-#### Blake2B
+#### Blake2b
 
 Blake2 is based on the ChaCha stream cipher，there are two versions，Blake2b and Blake2s. Blake2b is optimized for the usage with 64-bit platforms,
 while Blake2s is optimized for 32- bit platforms.
@@ -315,7 +325,7 @@ and then compared with the target difficulty.
 
 
 ## Backwards Compatibility
-This algorithm is not backwards compatible with the existing Blake2B, and will require a fork for adoption.
+This algorithm is not backwards compatible with the existing Blake2b, and will require a fork for adoption.
 
 ## Use Cases
 The algorithm run on that number of edges is 2^24^ and the length of the cycle is
