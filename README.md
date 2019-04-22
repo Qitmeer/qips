@@ -35,4 +35,7 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-1.asciidoc). Then clone the reposi
 |-----| ----------------------------------------------------------- | ---------- | ------------ | ---------- |
 | 1   | [The HIP Guidelines](hips/hip-0001.asciidoc)                | Alex Wu    | information  | Draft      |
 | 2   | [Naming Definition & Terminology](hips/hip-0002.asciidoc)   | Alex Wu    | information  | Draft      |
+| 3   | [Convert Block header time from uint32 to uint64](hips/hip-0003.asciidoc) | Jame Van  | Core  | Draft      |
+| 4   | [DAG Consensusy](hips/hip-0004.asciidoc)                                  | Jin       | Core  | Draft      |
+| 5   | [Cuckoo Cycle POW, a Programmatic Proof-of-Work](hips/hip-0005.asciidoc)  | Eric Lee  | Core  | Draft      |
 
