@@ -28,7 +28,7 @@ HLC's transaction model is done using an OP script similar to BTC and is well su
 * Bob holds `HLC`, he needs `HLC`-> `BTC`;
 * The transaction is initiated by Alice;
 
-![process](./hip-0006/process.jpg) 
+image::./hip-0006/process.jpg[]
 
 1、Alice Create the unlock key:
 
@@ -331,10 +331,11 @@ transaction raw: 02000000012a4483ae48657dc6dfe16ff43ff077906fff2d2a6869ec0f98cd9
 
 ### BTC Lock contract browser query address
 
+|===
 |Description|Transaction|
-|--|--|
-|Bitcoin contract created by Alice| [d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a](https://test-insight.bitpay.com/tx/d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a)|
-|Bitcoin Secret contract created by Bob | [2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d](https://test-insight.bitpay.com/tx/2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d)|
+|Bitcoin contract created by Alice| xref:https://test-insight.bitpay.com/tx/d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a[d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a]|
+|Bitcoin Secret contract created by Bob | xref:https://test-insight.bitpay.com/tx/2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d[2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d]|
+|===
 
 ###  Using the scenario
 
