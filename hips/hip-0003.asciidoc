@@ -10,6 +10,8 @@
 ## Abstract
 Now the HLC block size is 124,the type of the ntime is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
 
+![Image text](hip-0003/block.png)
+
 ## Motivation
 Because the opencl miner of the algorithm of blake2b needs the length of (header data)is Multiple of 8, if do this , the opencl has the best performance.
 
