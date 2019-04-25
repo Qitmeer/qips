@@ -1,3 +1,10 @@
+    HIP: 6
+    Title: HLC-compatible-Across-Chain
+    Author: zhang yi <dindinw@users.noreply.github.com>
+    Category: Application
+    Status: Draft
+    Created: 2019-04-24
+
 # HLC-compatible-Across-Chain
 
 ### Basis Introduce
