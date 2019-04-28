@@ -1,0 +1,347 @@
+    HIP: 0005
+    Title: Cuckoo Cycle POW, a Programmatic Proof-of-Work
+    Author: Eric <ray.lee7733@gmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-03-20
+
+## Abstract
+Proof-of-Work(PoW) is used to confirm transactions and produces new blocks,
+therefore it is a very important engine in PoW cryptocurrencies.
+PoW must not enable a participant to have a significant advantage over another participant.
+That is why Satoshi said: "Proof-of-work is essentially one-CPU-one-vote."
+
+However, most widely used proof-of-work algorithms, such as SHA-256, Blake2b, Scrypt,
+are more efficient on ASIC devices when compared to CPUs and GPUs.
+This can lead to ASIC owners posses a much larger voting power than CPU and GPU owners.
+It violates the “one-CPU-one-vote” principle.
+
+We introduce Cuckoo-Cycle-PoW ,a graph-theoretic proof-of-work algorithm. It is ASIC resistant.
+
+Cuckoo-Cycle-PoW is designed to find certain subgraphs in large pseudo-random graphs.
+This algorithm that we hope turns out to be ASIC resistant.
+It utilizes almost all parts of commodity hardware (GPUs).
+
+An introduction of Cuckoo Cycle algorithm to how it works can be found https://github.com/tromp/cuckoo[here].
+
+## Motivation
+PoW-based mining is carried out by the earliest CPU mining, GPU mining, FPGA mining,
+and finally to the current ASIC (professional mining machine) mining. Ever since the first ASIC miner for bitcoin was released in January 2013,
+Mining has gradually turned to a road with higher thresholds and more centralized power.
+CPU and GPU mining are the most decentralized mining equipment. The partial reason is that
+the purchase and price of the ASIC miners are not open and transparent, and some privately owned companies design and produce ASIC miner,
+also they operate large mining pools and mining farms.
+
+In view of the above reasons, many new Proof of Work algorithms have been created with the intention of being ASIC-resistant.
+The goal of ASIC-resistant is to resist the centralization of PoW mining power.
+
+In this document，first, we compare existing PoW algorithm. Next,we presents an overview of the Cuckoo-Cycle-PoW algorithm.
+Finally, we present the detailed implementation of Cuckoo-Cycle-PoW.
+
+## Review of Existing PoW Algorithms
+#### SHA256
+
+SHA256 is a cryptographic hash function. The algorithm is a sequence of simple math operations.
+A one-way hash can be generated from any piece of data, and compare the computed "hash" and expected hash value.
+
+The representative coin is Bitcoin.
+
+.Bitcoin mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD HD7950 BE GPU
+|0.69 G
+|375 W
+|0.00184 G/W
+
+|Avalon A911
+|19500 G
+|1750 W
+|11.14285 G/W
+|===
+_data come from btcfans.com_.footnote:[http://www.btcfans.com/]
+
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 6000 times that of mainstream GPU miners.
+
+#### Scrypt
+Scrypt is a kind of KDF(key derivation function) algorithm. Scrypt algorithm execution requires large amounts of memory.
+To a certain extent, it increases the production cost of mining machines.
+
+The representative coin is Litecoin.
+
+.Litecoin mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD HD7950 GPU
+|0.6 MH/s
+|212 W
+|0.00283 M/W
+
+|Antminer L3++ 580M
+|580 MH/s
+|950 W
+|0.61053 M/W
+|===
+_data come from btcfans.com_
+
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 215 times that of mainstream GPU miners.
+
+#### CryptoNight
+The characteristic of this algorithm is that each computing instance requires 2Mb of cache, so:
+* Suitable for CPU operations.
+* a certain degree of anti-ASIC capability, because the algorithm has caching requirements, there is a cost to increase the cache in the ASIC chip.
+* Comparing CPU mining with GPU does not have significant advantages.
+
+The representative coin is Monero.
+
+However, it is still too low to require the cache to set the entry threshold of the ASIC miner.
+Bitmain announces the release of the Antminer X3 miner in 2018.
+
+.Monero mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD VEGA GPU
+|2000 H/s
+|160 W
+|12.5 H/W
+
+|Antminer X3
+|220000 H/s
+|550 W
+|400 H/W
+|===
+_data come from btcfans.com_
+
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 32 times that of mainstream GPU miners.
+
+#### X11, X13 and X15
+X11 algorithm is intended to make ASICs much more difficult to create. X11 uses 11 different hash functions.
+The X11 algorithm uses multiple rounds of 11 different hashes，include blake, bmw, groestl, jh, keccak, skein, luffa,
+cubehash, shavite, simd and echo. For instance, when data are submitted to the blake function, it produces a hash value,
+which is submitted to the bmw function and then it produces another value.
+The repeating of process continues till the last function.
+
+The representative coin is Dash.
+
+.Dash mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD RX Vega 56
+|12 MH/s
+|210 W
+|0.05714 M/W
+
+|Antminer D5 119G
+|119000 MH/s
+|1566 W
+|75.98978 M/W
+|===
+
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 1330 times that of mainstream GPU miners.
+
+#### Ethash
+Ethash is designed to be ASIC-resistant via memory-hardness. Ethash requires external memory due to the large size of the DAG file.
+When the algorithm is executed, it is necessary to frequently read the contents of memory. Accordingly, it is ASIC-resistant.
+
+The representative coin is Ethereum.
+
+.Ethereum mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD RX Vega 56
+|38.5 MH/s
+|210 W
+|0.18333 M/W
+
+|Antminer E3
+|180 MH/s
+|800 W
+|0.225 M/W
+|===
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 1.2 times that of mainstream GPU miners.
+But the price of an Antminer E3 miner is only 3,000 RMB. Far less than the price of assembling a GPU miner with the same hashrate.
+
+#### Blake2b
+
+Blake2 is based on the ChaCha stream cipher，there are two versions，Blake2b and Blake2s. Blake2b is optimized for the usage with 64-bit platforms,
+while Blake2s is optimized for 32- bit platforms.
+
+The representative coins are Siacoin, Decred.
+
+.Siacoin mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD RX Vega 56
+|0.01 GH/s
+|210 W
+|0.00005 G/W
+
+|OBelisk SC1 Dual
+|1100 GH/s
+|900 W
+|1.22223 G/W
+|===
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 24444 times that of mainstream GPU miners.
+
+
+#### Equihash
+
+
+The representative coin is Zcash.
+
+.Zcash mining revenue
+|===
+|ASIC/GPU |Miner Hashrate |Miner Power |Hashrate/Power
+
+|AMD RX Vega 56
+|469.74 H/s
+|210 W
+|2.23686 H/W
+
+|Antminer Z11
+|135000 KH/s
+|1418 W
+|95.20451 H/W
+|===
+It can be seen from the above table that the Hashrate/Power of ASIC miners is more than 43 times that of mainstream GPU miners.
+
+#### X16R
+The X16R algorithm minimize the impact of ASIC miners is to use randomness.
+It solve this problem by constantly disrupting the ordering of the hashing algorithms.
+The X16R algorithm consists of 16 hashing algorithms with the ordering dependent on the last 8 bytes of the hash of the
+previous block. The 16 hashing algorithms are as follows:
+[format="csv"]
+|===
+blake,bmw,groestl,jh
+keccak,skein,luffa,cubehash
+shavite,simd,echo,hamsi
+fugue,shabal,whirlpool,sha512
+|===
+
+At present, there is no ASIC miner for X16R algorithm. The representative coin is Ravencoin.
+
+
+## Cuckoo-Cycle-PoW Overview
+The Cuckoo Cycle POW is the work of John Tromp, and the C++ implementations can be found in his https://github.com/tromp/cuckoo[github repository].
+The algorithm's technical details can be find in his https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf[white paper]
+
+The Cuckoo-Cycle algorithm is designed to find certain subgraphs in large pseudo-random graphs. In particular,
+Search for cycles of specified length L in a bipartite graph with M edges of N nodes.
+If a cycle is found and the hash difficulty is less than the target difficulty, the cuckoo cycle PoW is completed.
+
+## Specification
+
+#### Overall flow
+. Outer loop
+  .. Build block Header with following values: +
+   Difficulty: Difficulty target for tx +
+   TxRoot: The merkle root of the tx tree +
+   Timestamp: A Unix time timestamp +
+   Nonce: A 64-bit (8-byte) field whose value is adjusted by miners +
+   ParentRoot: The merkle root of the previous parent blocks (the dag layer) +
+  .. Set amount of the attempt time, currently configured at 60 seconds, for inner loop.
+  .. Set the deadline is equal to the attempt time add the current unix timestamp.
+  .. Inner loop
+  ... Check the header's hash is the latest header's hash and the current timestamp less than the deadline.
+  ... Initialize cuckoo graph with some consensus values, such as edgebits(the size of the graph),proofSize(the length of the cycle)
+  ... The Blake2b algorithm hashes the block header.
+  ... Through the SIPHASH function to build nodes of graph, the block header's hash and the nonce of inner loop as input parameters.
+  ... Edge Trimming: It drastically reducing the number of edges our basic algorithm has to process.
+  ... The finding cycle algorithm tries to find a solution (i.e. a cycle of length 42) within the generated graph.
+  ... If the solution is found:
+  .... The Blake2b algorithm hashes the cycle nonces.
+  .... The cycle nonces's hash is compared to the current target difficulty.
+  ... If the cycle nonces's hash difficulty is greater than or equal to the target difficulty, the block is sent to the transaction pool, propagated amongst peers for validation, and work begins on the next block.
+  ... If the cycle nonces's hash difficulty is less than the target difficulty, the proof is thrown out and the inner loop continues.
+
+
+#### Edge(Node) generation
+For the sake of simplicity, we define 32 edges for the bipartite graph.
+We call the SIPHASH function twice to create two edge endpoints(U and V), with the first input value being 2 * nonce,
+and the second 2 * nonce+1. The key for this function is based on a hash of a block header. +
+
+[latexmath]
+++++
+\begin{equation}
+{U = SIPHASH(headerHash, 2*nonce) \mod 31}
+\end{equation}
+++++
+
+[latexmath]
+++++
+\begin{equation}
+{V = SIPHASH(headerHash, 2*nonce+1) \mod 31}
+\end{equation}
+++++
+where,
+[latexmath]
+\begin{equation}
+0\leq\ {\bf nonce} \lt\ 31
+\end{equation}
+it is any number between 0 and 31. Each nonce corresponds to two edge endpoints(U and V).
+
+To throw 32 edges into a graph, randomly:
+
+image::hip-0005/edge_generation.png[]
+Figure 1. Building Nodes
+
+#### Edge Trimming
+There is a special edge in bipartite graph, which we call leaf edges. It can never be part of a cycle.
+Leaf edges have a feature, the nodes it connects must have at least one node with the degree of the nodes being one.
+By eliminating leaf edges in the bipartite graph, we can greatly reduce the complexity of the graph,
+thus speeding up finding cycle from the bipartite graph.
+
+image::hip-0005/edge_trimming.png[]
+Figure 2. Trimming of edges which cannot be part of a cycle.footnote:[John Tromp, Cuckoo Cycle: a memory bound graph-theoretic proof-of-work, November 13, 2018. Available: https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf]
+
+. Step 1: node 2 and node 12 are one degree nodes, eliminating the adge (2,15) and the adge (12,11).
+. Step 2: node 11 and node 15 are one degree nodes, eliminating the adge (11,10) and the adge (15,4).
+
+Finally, the 6-cycle is left in this example.
+
+#### Cycle detection
+After edge trimming, if a cycle of length L is found, we think we have found a solution to this problem.
+we store the cycle edges in a set and put the nonce of the generated cycle in a set and
+return as the result of cycle detection.
+
+#### Difficulty control
+The difficulty of finding a cycle in the graph is proportional to M/N. Here M stands for edges of the graph.
+N stands for nodes of the graph. However, the difficulty of finding a cycle in the graph change is not smooth.
+For crypto currencies, difficulty control must be scale in precisely controlled manner. The usual practice is
+that the ratio of M/N remain fixed, such as M/N = 1/2.
+The figure is probability trend of finding a cycle of length 42.
+
+image::hip-0005/probability.png[]
+Figure 3. probability trend.
+
+Thus in the actual use, it also adds a hash difficulty control similar to Bitcoin. The digest of the cycle nonces is obtained by a hash function,
+and then compared with the target difficulty.
+
+
+## Backwards Compatibility
+This algorithm is not backwards compatible with the existing Blake2b, and will require a fork for adoption.
+
+## Use Cases
+The algorithm run on that number of edges is 2^24^ and the length of the cycle is
+20 produces the following cycle nonces:
+```
+cycle nonces: 0x1ce49a,0x214b5c,0x352b8c,0x3f19c7,0x3f86b3,0x626cb7,0x6735c4,0x6c5178,0x70755d,0x8454b2,0xa8acd5,0xb84708,0xc6181a,0xc93854,0xd52119,0xdf1b6d,0xe7e7d4,0xe8517d,0xeba99c,0xed6144,
+
+```
+The block header is
+```
+b661985959d996d5148aee0476a4c66a4deefcbb60441c36a44ffb011a193f80
+```
+
+## Implementation
+The reference Cuckoo-Cycle-PoW implementation located at https://git.diabin.com/HLC/cuckoo-cycle-pow[Cuckoo-Cycle-PoW].
+
+## See also
+The references links might list here
+
