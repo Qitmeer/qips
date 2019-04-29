@@ -14,6 +14,7 @@ image::hip-0003/block.png[]
 
 ## Blake2b Algorithm
 Blake2b is a fast, secure hash function that is a modification of Blake algorithm. This cryptographic hash function is based on ChaCha stream cipher; designed by Daniel J. Bernstein. Blake2b is one of the algorithm based on Blake2 and the other one is Blake2s. The difference between them is Blake2b is optimized for 64-bit platforms whereas Blake2s is suitable for 8 to 32-bit platforms. Blake2 is faster and more secure than MD5, SHA-1, 2 and SHA-3 hash algorithms. To learn more about Blake2 hashing algorithm you may need to go through the official website.
+
 image::hip-0003/speedTest.png[]
 
 ## Motivation
