@@ -24,7 +24,7 @@ The technical specification should describe the syntax and semantics of any new 
 All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The HIP must explain how the author proposes to deal with these incompatibilities. HIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
 
 ## Use Cases
-The Use case for an implementation are mandatory in most case. sometimes it exchangable with test cases.
+The use cases of an implementation are mandatory in most cases. Sometimes they are exchangeable with test cases.
 
 ## Implementation
 The implementations must be completed before any HIP is given status "Final", but it need not be completed before the HIP is accepted.
