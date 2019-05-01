@@ -11,7 +11,7 @@
 The HalalChain Improvement Proposals (HIPs) describe standards for the HalalChain platform, including core protocol specifications, networking protocol, consensus algorithms, client APIs and application-level standards and conventions.
 
 # How to Contribute
-First read [HIP-1 : HIP Guidelines ](hips/hip-1.asciidoc). Then clone the repository and add your HIP to it. There is a template HIP file [hip-x.asciidoc](hips/hip-x.asciidoc). You can copy and modify it to create an new HIP. Then submit a Pull Request to the [HIPs repository](https://github.com/halalchain/hips).
+First read [HIP-1 : HIP Guidelines ](hips/hip-0001.asciidoc). Then clone the repository and add your HIP to it. There is a template HIP file [hip-x.asciidoc](hips/hip-x.asciidoc). You can copy and modify it to create an new HIP. Then submit a Pull Request to the [HIPs repository](https://github.com/halalchain/hips).
 
 # HalalChain Improvement Proposals (HIPs)
 
