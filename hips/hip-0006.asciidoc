@@ -1,15 +1,14 @@
     HIP: 6
     Title: HLC-compatible-Across-Chain
-    Author: zhang yi <dindinw@users.noreply.github.com>
+    Author: zhang yi <mz467348631@outlook.com>
     Category: Application
     Status: Draft
     Created: 2019-04-24
 
-# HLC-compatible-Across-Chain
+# Abstract
+HLC Across the chain technology is mainly to solve different main chain (such as: ` HLC ` and ` BTC `) problem of data exchange between the most direct cross chain technology application is "DEX ：distributed exchange", No third party participation will purse ` BTC ` into ` HLC `.
 
-### Basis Introduce
-
-Across the chain technology is mainly to solve different main chain (such as: ` HLC ` and ` BTC `) problem of data exchange between the most direct cross chain technology application is "DEX ：distributed exchange", No third party participation will purse ` BTC ` into ` HLC `.
+## Introduction
 
 There are three main types of cross-chain solutions:
 1. Notary schemes
@@ -25,9 +24,9 @@ Sidechains technology is one of the main chain of data for the input on the do n
 ##### Hash-locking
 Hash locking technology is A cross-chain transaction in which the transaction party first provides the contract unlocking secret key of the asset locking on the B chain to the recipient through time locking on the A chain to complete the cross-chain transaction at the agreed time. It originated from the lightning network.
 
-### HLC compatible-Across-Chain Implementation approach
-
 HLC's transaction model is done using an OP script similar to BTC and is well suited for cross-chain implementations using hash time locking.
+
+## Specification
 
 ##### Cross-chain transaction process
 
@@ -139,7 +138,7 @@ The cross-chain contract is mainly composed of five interfaces:
 4. When the transaction exceeds the specified time, the user gets back the token (refund operation) in the contract: **refund**;
 5. Verify the correctness of the number, address and time parameters of the time lock contract: **auditcontract**;
 
-### The implementation process
+## Test Cases
 
 1、Alice and Bob to create their own BTC addresses are used to exchange `BTC`;
 
@@ -344,7 +343,7 @@ transaction raw: 02000000012a4483ae48657dc6dfe16ff43ff077906fff2d2a6869ec0f98cd9
 |Bitcoin Secret contract created by Bob | https://test-insight.bitpay.com/tx/2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d[2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d]|
 |===
 
-###  Using the scenario
+## See also
 
 `HLC` across the realization of the chain technology mainly include JavaScript  and golang version two implementations, golang runs on the client side, JavaScript will be integrated into the `HLC` web version of light in the wallet, and through the API will complete the transaction on the web end signature sequence synchronization to miners.
 
