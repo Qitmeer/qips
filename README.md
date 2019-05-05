@@ -1,7 +1,7 @@
 # The Halalchain Improvement Proposals (HIPs)
 
   * [Introduction](#introduction)
-  * [How to Contrubute](#how-to-contrubute)
+  * [How to Contribute](#how-to-contribute)
   * [HalalChain Improvement Proposals (HIPs)](#halalchain-improvement-proposals-hips)
      * [The HIPs Categories](#the-hips-categories)
      * [The HIPs Status](#the-hips-status)
@@ -38,4 +38,5 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-0001.asciidoc). Then clone the rep
 | 3   | [Convert Block header time from uint32 to uint64](hips/hip-0003.asciidoc) | Jame Van  | Core  | Draft      |
 | 4   | [DAG Consensusy](hips/hip-0004.asciidoc)                                  | Jin       | Core  | Draft      |
 | 5   | [Cuckoo Cycle POW, a Programmatic Proof-of-Work](hips/hip-0005.asciidoc)  | Eric Lee  | Core  | Draft      |
+| 6   | [HLC compatible atomic swap cross-chain](hips/hip-0006.asciidoc) | Yi Zhang | Core | Draft |
 
