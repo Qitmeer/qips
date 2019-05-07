@@ -1,0 +1,51 @@
+    HIP: 0008
+    Title: The Numerical Way of Calculating Online Confirmation Times in SPECTRE
+    Author: Zhixiang Zhu <zzxiang21cn@hotmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-05-05
+
+## Abstract
+
+## Motivation
+
+HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is so
+hard to read that it is not easy to find out the explicit algorithm or formula to calculate the
+exact confirmation time of a block. This proposal gives the answer.
+
+The SPECTRE paper provides two ways of accepting (confirming) a block, i.e. the offline way and the
+online way. The online way is more straightforward. The simulation results of the paper also adopted
+the online way. This proposal adopts the same way.
+
+## Specification
+
+When a node _v_ receives a block _x_, it loops to calculate the online risk of the block with
+Algorithm 7 in the SPECTRE paper. It accepts the block when the risk is smaller than a given
+threshold _&#1013;_. The online confirmation time of block _x_ in node _v_ is the time since _x_ is
+received by _v_ until _x_ is accpeted by _v_.
+
+image::hip-0008/algorithm_7.png[]
+
+Figure 1. Algorithm for checking whether to accept a block. Correction: The _G~x~_ at the end of
+line 4 should be _G~t~^v^_.
+
+The definition of _risk_hidden(T, g)_ in the algorithm appears in formula (45)-(46) in the SPECTRE
+paper as follows:
+
+image::hip-0008/risk_hidden.gif[]
+
+Figure 2. The definition of _risk_hidden_. 
+
+In the above definition, _d_ is the upper bound on the recent delay diameter in the network,
+_&alpha;_ is the attacker’s relative computational power, _&lambda;_ is the block creation rate,
+_Poiss(a, b)_ is defined as _e^-a^a^b^/b_!, _x_^+^ is defined as max{0, _x_}.
+
+_&pi;_ is the stationary distribution. In order to calculate it we need to define _&delta;_ :=
+_&alpha; &middot; &lambda; &middot; d_, pick some _N_ &Gt; 1, and then define an _N_ by _N_ matrix
+_T_. For all 1 &le; _l_ &lt; _N_ - 1, _T_~_l_-1,_l_~ = 1 - &alpha;, _T_~_l_+1,l~ = &alpha;, and for _l_
+= _N_ - 1: _T_~_l_-1,_l_~ = 1 - &alpha;, _T_~_l_,_l_~ = &alpha;.  The first column of the matrix is
+defined by: _T_~0,0~ := (1 - _&alpha;_) &middot; _e^-&delta;^_, _T_~1,0~ = _e^-&delta;^ &middot;
+&alpha;_ + _e^&delta;^ &middot; &delta;_, for 1 &lt; _l_ &lt; _N_ - 1: _T_~_l_,0~ = _e^-&delta;^
+&middot; &delta;^l^/l_!, and _T_~_N_-1,0~ = 1 - _e^-&delta;^_ &middot; (_&delta;_^0^/0! &plus;
+_&delta;_^1^/1! + ... + _&delta;_^_N_-2^/(_N_-2)!). _&pi;_ is the eigenvector of _T_ corresponding to
+the eigenvalue 1.
