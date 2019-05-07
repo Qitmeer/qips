@@ -39,4 +39,5 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-0001.asciidoc). Then clone the rep
 | 4   | [DAG Consensusy](hips/hip-0004.asciidoc)                                  | Jin       | Core  | Draft      |
 | 5   | [Cuckoo Cycle POW, a Programmatic Proof-of-Work](hips/hip-0005.asciidoc)  | Eric Lee  | Core  | Draft      |
 | 6   | [HLC compatible atomic swap cross-chain](hips/hip-0006.asciidoc) | Yi Zhang | Core | Draft |
+| 7   | [API naming case sensitive](hips/hip-0007.asciidoc)         | Wayman Huo  | Interface | Draft |
 
