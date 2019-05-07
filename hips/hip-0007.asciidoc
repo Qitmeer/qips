@@ -21,7 +21,7 @@ curl -i -X POST -H 'Content-type':'application/json' -d '{"jsonrpc": "1.0","meth
 
 
 ## Specification
-All apis are not case sensitive. E.g 'submitblock','submitBlock','SubmitBlock'...all of this is correct.
+All apis are not case sensitive. E.g 'submitblock','submitBlock','SubmitBlock'...all of them are correct.
 
 
 ## Backwards Compatibility
