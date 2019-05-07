@@ -9,9 +9,11 @@
 
 ## Motivation
 
-HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is so
-hard to read that it is not easy to find out the explicit algorithm or formula to calculate the
-exact confirmation time of a block. This proposal gives the answer.
+HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
+read and understand from developers' or implementors' perspectives. Therefore, it is not easy to
+find out the explicit algorithm or formula to calculate the exact confirmation time of a block. This
+proposal tries to solve the problem by focusing on describing the method to calculate confirmation
+times.
 
 The SPECTRE paper provides two ways of accepting (confirming) a block, i.e. the offline way and the
 online way. The online way is more straightforward. The simulation results of the paper also adopted
