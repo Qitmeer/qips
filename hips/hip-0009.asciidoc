@@ -1,0 +1,77 @@
+    HIP: 30
+    Title: Block Reward Schedule and Transaction Fees Disign and Pricing V1
+    Author: blocklee<block.lee121@gmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-05-06
+
+== Abstract
+
+**The rewards in a block** usually refer to the amount that miners may claim as a reward for creating a block. Equal to the sum of the block subsidy (newly available tokens) plus the transactions fees paid by transactions included in the block.  The block subsity is often regarded as a block reward schedule. The transactions fees is the amount remaining when the value of all outputs in a transaction are subtracted from all inputs in a transaction; the fee is paid to the miner who includes that transaction in a block.  Both are incentives for network participants.
+
+== The Economic Implications of Block Rewards
+
+The economic implications of block rewards mainly includes three aspects：
+
+- **Who pays for running the network?**
+
+Growth in total token supply imposes a cost on all token balances, since purchasing power of tokens is eroded over time. This effect is analogous to the well-known concept of “inflation tax” in conventional economic systems, and validators (both validators and block proposers) are the beneficiaries, since they collect the newly minted tokens in the form of block rewards.
+
+Both transactions fees and block rewards ensure that all those enjoying the benefits of the network contribute resources to running it. In a new system, the volume of retail transactions starts at a relatively low level, so a relatively high initial block reward rate support the network function. Block rewards will gradually decreases as the volume of retail transactions rises. In the long run, funding of network functions would then increasingly rely on the transaction fees, rather than block rewards.
+
+- **Incentives for Validators**
+
+In a PoW system, validators need to invest hardware resources and electricity costs to participate in the network. Rewarding validators with new tokens thus offers them a claim on the proceeds from seigniorage. The block rewards are expected returns and incentives for validators to contribute resources.
+
+- **User Adoption**
+
+？
+In a PoW system, 区块奖励的预期收益吸引了大量矿工的参与，token的价值有矿工的硬件资源以及电费做支撑，
+
+
+
+== Block Reward Schedule: Design Consideration
+
+Choosing a block reward schedule is an important question that is often addressed heuristically. A block reward is the rate of growth of the token pool and is of central interest. A key property of block rewards is that they add to the total token supply.
+
+Current Reward Schedule
+
+Halving & Smooth decay
+
+
+== Transaction Fees Disign
+
+Transaction fees are drawn from users’ transactions and awarded to nodes who process that node’s transactions, as an another class of incentives.
+
+**How to choose transaction fees, it is a primary question in cryptocurrencies**. To select the transaction fees, need to consider two questions:
+
+* The ﬁrst is how to choose the magnitude of transaction fees; namely, should fees be proposed by users, imposed by the system, or some combination thereof? Typical considerations include scaling fees with the transaction’s bytesize, monetary value, or both.(量级的选择，用户提出费用还是系统强制？典型考虑是按交易尺寸，币值或者两者来缩放费用)
+
+* The second question is how to allocate fees once they are collected.（交易费用的分配）
+
+=== Current Fee Management
+
+Most existing cryptocurrencies allow users to set their own fees; validators choose whether to process a given transaction based on whether the offered transaction fee is high enough. The node who includes a transaction in a block, reaps the full transaction fee as a reward. A given transaction can be re-broadcast by raising fees when not included in a block by any miner after some period of time. Although some cryptocurrencies place a lower bounds,  in practice, users tend to choose substantially higher transaction fees. May be a natural approach, and widely adopted. It cause three negative effects: high congestion, high fees, and incentive incompatibility.
+
+The current fee mechanism is actually a design that incentive congestion. Validators are incentived to choose which transactions to confirm based on transaction fees, users are forced to pay to bypass congestion. An user-selected fee structure, in which validators can choose which transactions to include based on fees, means an unbounded fees, leading to volatility and uncertainty on fees.
+
+Carlsten et al. show that in the absence of inflation, rational Bitcoin miners are no longer incentivized to mine on the longest chain <<Carlsten>>.
+
+image::hip-0009/Figure-1.png[Figure 1]
+[.small]##Figure 1: One possible state of the block chain and two possible actions a miner could take##.
+
+When choosing between forks, miners are incentivized to adopt one with fewer transactions in the final block, since such forks leave more transaction fees for the next miner. By exploiting this observation, selfish miners can convince other miners to build on side chains. This is the incentive incompatibility result from current fee mechanism.
+
+=== Design considerations
+
+
+
+
+
+
+[bibliography]
+== References
+
+- [[[Carlsten,1]]] Miles Carlsten, Harry Kalodner, S Matthew Weinberg, and Arvind Narayanan. link:http://randomwalker.info/publications/mining_CCS.pdf[On the instability of bitcoin without the block reward]. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security, pages 154–167. ACM, 2016.
+
+
