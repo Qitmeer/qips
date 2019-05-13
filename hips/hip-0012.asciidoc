@@ -23,30 +23,25 @@ image::./hip-0012/mapping.jpg[mappingprocess]
 
 # Implementation
 
-1. Record the mapped address in the smart contract
+1. Record the mapped address in the smart contract;
 
 create solidity smart contract:
 
     pragma solidity ^0.4.24;
-
-    contract AddressMapping {
-        
-    mapping(address => bytes) balances;
-    
-    function addAddress( bytes HLCMainAdd ) {
-        require( balances[msg.sender].length == 0, 'One address can only correspond to one map');
-        balances[msg.sender] = HLCMainAdd;
-    }
-
-    function getHCLaddress( address _owner ) view returns( bytes ) {
-        return balances[_owner];
-    }
+    contract AddressMapping { 
+        mapping(address => bytes) balances;
+        function addAddress( bytes HLCMainAdd ) {
+            require( balances[msg.sender].length == 0, 'One address can only correspond to one map');
+            balances[msg.sender] = HLCMainAdd;
+        }
+        function getHCLaddress( address _owner ) view returns( bytes ) {
+            return balances[_owner];
+        }
     }
 
 2. Call addAddress to add the mapping address;
 
     0x14723a09acff6d2a60dcdf7aa4aff308fddc160c -> 0x44d959afb6db4ad730a6e2c0daf46ceeb98c53a0
-
     // ETH -> HLC publickeyhash
     0x14723a09acff6d2a60dcdf7aa4aff308fddc160c -> RmCYoUMqKZopUkai2YhUFHR9UeqjeyjTAgW
 
