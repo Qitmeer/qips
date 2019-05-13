@@ -53,7 +53,7 @@ contract AddressMapping {
 0x14723a09acff6d2a60dcdf7aa4aff308fddc160c -> RmCYoUMqKZopUkai2YhUFHR9UeqjeyjTAgW
 ```
 
-## Erc20 HLC send to `0x0000000000000000000000000000000000000000`;
+3. Erc20 HLC send to `0x0000000000000000000000000000000000000000`;
 
 ```js
 MyContract.methods.transfer(
@@ -62,6 +62,6 @@ MyContract.methods.transfer(
 ).send()
 ```
 
-## Oracle listens to the transfer
+4. Oracle listens to the transfer
 
 After listening to the transfer, query the mapped address through the AddressMapping contract, and transfer HLC main to the mapped address according to the specified proportion to complete the token exchange.
