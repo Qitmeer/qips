@@ -62,6 +62,6 @@ MyContract.methods.transfer(
 ).send()
 ```
 
-4. Oracle listens to the transfer
+4. Oracle listens to the transfer
 
 After listening to the transfer, query the mapped address through the AddressMapping contract, and transfer HLC main to the mapped address according to the specified proportion to complete the token exchange.
