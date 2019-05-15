@@ -9,9 +9,11 @@
 
 ## Motivation
 
-HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is so
-hard to read that it is not easy to find out the explicit algorithm or formula to calculate the
-exact confirmation time of a block. This proposal gives the answer.
+HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
+read and understand from developers' or implementors' perspectives. Therefore, it is not easy to
+find out the explicit algorithm or formula to calculate the exact confirmation time of a block. This
+proposal tries to solve the problem by focusing on describing the method to calculate confirmation
+times.
 
 The SPECTRE paper provides two ways of accepting (confirming) a block, i.e. the offline way and the
 online way. The online way is more straightforward. The simulation results of the paper also adopted
@@ -45,7 +47,7 @@ _&alpha; &middot; &lambda; &middot; d_, pick some _N_ &Gt; 1, and then define an
 _T_. For all 1 &le; _l_ &lt; _N_ - 1, _T_~_l_-1,_l_~ = 1 - &alpha;, _T_~_l_+1,l~ = &alpha;, and for _l_
 = _N_ - 1: _T_~_l_-1,_l_~ = 1 - &alpha;, _T_~_l_,_l_~ = &alpha;.  The first column of the matrix is
 defined by: _T_~0,0~ := (1 - _&alpha;_) &middot; _e^-&delta;^_, _T_~1,0~ = _e^-&delta;^ &middot;
-&alpha;_ + _e^&delta;^ &middot; &delta;_, for 1 &lt; _l_ &lt; _N_ - 1: _T_~_l_,0~ = _e^-&delta;^
+&alpha;_ + _e^-&delta;^ &middot; &delta;_, for 1 &lt; _l_ &lt; _N_ - 1: _T_~_l_,0~ = _e^-&delta;^
 &middot; &delta;^l^/l_!, and _T_~_N_-1,0~ = 1 - _e^-&delta;^_ &middot; (_&delta;_^0^/0! &plus;
 _&delta;_^1^/1! + ... + _&delta;_^_N_-2^/(_N_-2)!). _&pi;_ is the eigenvector of _T_ corresponding to
 the eigenvalue 1.
