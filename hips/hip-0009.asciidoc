@@ -139,7 +139,7 @@ image::hip-0009/Block_Reward.png[Figure-2]
 One of an important trade-offs involved in choosing a block reward function may be equitability. Equitability means that a party that begins with a certain fraction of stake cannot unduly amplify its fraction of stake simply by participating in block proposal or validation. But in a PoW system, this will not be a problem.
 The research of Giulia et al. show that no block reward function can achieve the same degree of equitability as PoW <<prism>>.
 
-We assume the total reward latexmath:[R] dispensed in time period latexmath:[T] is fixed, so latexmath:[\sum_{n=1}^{T} r(n)=R]. Where latexmath:[r(n)] is the block reward function of block number latexmath:[n], which is freshly-minted at each time step.
+We assume the total reward R dispensed in time period T is fixed, so latexmath:[\sum_{n=1}^{T} r(n)=R]. Where r(n) is the block reward function of block number n, which is freshly-minted at each time step.
 
 ‘Halving’ used in Bitcoin reflects a constant block reward function, like this:
 
@@ -149,11 +149,11 @@ r_{c}(n) :=\frac{R}{T}
 
 ‘Smooth decay’ and ‘Phase decay’ reflect different geometric reward function. Such as:
 
-In Siacoin: latexmath:[r(n) := 300000-n] for n =1,2,...,270000, and latexmath:[r(n) := 30000] for n>270000.
+In Siacoin:r(n) := 300000-n for n =1,2,...,270000, and r(n) := 30000 for n>270000.
 
-In ETC: latexmath:[r(n) = 5 * 0.8^E], where E= (n-1) // 5000000 (// denotes integer division).
+In ETC: r(n) = 5 * 0.8^E, where E= (n-1) // 5000000 (// denotes integer division).
 
-Theoretically, we can choose any block reward schedule latexmath:[r(n)] that respects the total reward constraint of latexmath:[R].
+Theoretically, we can choose any block reward schedule r(n) that respects the total reward constraint of R.
 
 
 
