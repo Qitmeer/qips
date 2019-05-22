@@ -87,18 +87,14 @@ It is recommended to calculate _&pi;_ with some well-tested Markov chain library
 https://github.com/spedygiorgio/markovchain[_markovchain_] package in R.
 
 The sum of series with index _m_ seems to be a sum of infinite series. However, for _m > g - l_ we
-have (_g - l - m_)^+^ = 0 and the fractional part simplified to 1.
-
-image::hip-0008/fraction_simplified_to_1.svg[]
-
-Figure 4. The fractional part is simplified to 1.
+have (_g - l - m_)^+^ = 0 and image:hip-0008/fraction_simplified_to_1.svg[].
 
 Therefore, the formula of _risk_hidden_ can be further converted as blelow, where _Poiss~cdf~_ is
 the cumulative distribution function (CDF) of Poisson distribution.
 
 image::hip-0008/risk_hidden_converted.svg[]
 
-Figure 5. The converted formula _risk_hidden_.
+Figure 4. The converted formula _risk_hidden_.
 
 With the converted formula we are able to calculate _risk_hidden_ in numerical way. We provide our
 implementation with R: https://github.com/HalalChain/spectre-poc/blob/master/risk_hidden.R
