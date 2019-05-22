@@ -42,4 +42,5 @@ First read [HIP-1 : HIP Guidelines ](hips/hip-0001.asciidoc). Then clone the rep
 | 7   | [API naming case sensitive](hips/hip-0007.asciidoc)         | Wayman Huo  | Interface | Draft |
 | 8   | [Online Confirmation Time](hips/hip-0008.asciidoc)         | Zhixiang Zhu  | Core | Draft |
 | 9   | [Block Reward Schedule and Transaction Fees Disign](hips/hip-0009.asciidoc) | blocklee | Core | Draft|
+| 31  | [Mining and Pre-minding Design in DAG-POW System](hips/hip-0031.md)         | blocklee | Process | Draft |
 
