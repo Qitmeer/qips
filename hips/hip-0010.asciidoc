@@ -1,0 +1,19 @@
+    HIP: 0010
+    Title: Fruit Chain Protocol, a Fair Proof-of-Work
+    Author: Eric <ray.lee7733@gmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-05-27
+
+## Abstract
+
+
+## Motivation
+
+
+## Specification
+
+
+## Use Cases
+
+## Implementation
