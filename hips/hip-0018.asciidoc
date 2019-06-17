@@ -1,0 +1,38 @@
+    HIP: 18
+    Title: Create User's local wallet (Native B/S private wallet)
+    Author: Wayman Huo <i5d@live.com>
+    Category: Application
+    Status: Draft
+    Created: 2019-06-17
+
+## Abstract
+
+Although there are many lightweight wallets APP , private localized de-centralized wallets are still the foundation of a blockchain, especially for users with large amounts of coins. Personal private wallets are necessary, and we are also obliged to provide a basic version of local de-centralized wallets.
+
+There are many ways to implement decentralized wallets , bitcoin's CLI wallet and GUI wallet,  ethereum's WEB3 interactive wallet, and most native web wallets (shell eletron), generally in terms of development efficiency and user experience, Native web wallet is a best choise
+
+
+## Specification
+
+The local user wallet shoud implements the basic functions:
+
+1. private key create, encryption and store，import and export
+
+2. address and account manage
+
+3. transaction histroy query
+
+4. make and send transcation ,monitor transcation status
+
+The develop stack:
+
+Provide native web server program to connecting qitmeer node and user interaction. The best way is to combine CLI wallet and web natives wallet, and provide two different switching modes according to the parameters.
+
+## See also
+
+B/S and native wallet
+
+Bytom wallet https://bytom.io/wallet/
+
+Ethereum parity wallet https://wiki.parity.io/Accounts%2C-Wallets%2C-Vaults
+
