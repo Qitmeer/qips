@@ -1,6 +1,6 @@
     HIP: 16
     Title: Sukuk Use cases on HLC Public chain
-    Author: Abdullah Ayub Muhammed
+    Author: Abdullah Ayub Muhammed/ Onagun
     Category: Applications
     Status: Draft
     Created: 2019-06-21
