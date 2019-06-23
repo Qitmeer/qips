@@ -300,10 +300,11 @@ thus speeding up finding cycle from the bipartite graph.
 image::hip-0005/edge_trimming.png[]
 Figure 2. Trimming of edges which cannot be part of a cycle.footnote:[John Tromp, Cuckoo Cycle: a memory bound graph-theoretic proof-of-work, November 13, 2018. Available: https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf]
 
-. Step 1: node 2 and node 12 are one degree nodes, eliminating the adge (2,15) and the adge (12,11).
-. Step 2: node 11 and node 15 are one degree nodes, eliminating the adge (11,10) and the adge (15,4).
+. Step 1: node 0, node 3 and node 10 are one degree nodes, eliminating the edge (0,13), (6, 3) and the edge (10,9).
+. Step 2: node 9 and node 13 are one degree nodes, eliminating the edge (8,9) and the edge (2,13).
+. Step 3: node 8 is one degree nodes, eliminating the edge (8,11).
 
-Finally, the 6-cycle is left in this example.
+Finally, the 4-cycle is left in this example.
 
 #### Cycle detection
 After edge trimming, if a cycle of length L is found, we think we have found a solution to this problem.
