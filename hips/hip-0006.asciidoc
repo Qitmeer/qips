@@ -1,0 +1,361 @@
+    HIP: 6
+    Title: HLC-compatible-Across-Chain
+    Author: zhang yi <mz467348631@outlook.com>
+    Category: Application
+    Status: Draft
+    Created: 2019-04-24
+
+# Abstract
+HLC Across the chain technology is mainly to solve different main chain (such as: ` HLC ` and ` BTC `) problem of data exchange between the most direct cross chain technology application is "DEX ：distributed exchange", No third party participation will purse ` BTC ` into ` HLC `.
+
+## Introduction
+
+There are three main types of cross-chain solutions:
+1. Notary schemes
+2. Sidechains/relays
+3. Hash-locking
+
+##### Notary schemes
+Notary schemes refers to the node consists of a set of market trusted notary X Y node authentication chain to chain on whether a specific event occurs, such as: by HCL foundation members of a group of trusted node, the node trust can verify from ` BTC ` main chain of trading information.
+
+##### Sidechains/relays
+Sidechains technology is one of the main chain of data for the input on the do not tamper with the data structure, such as BTC Relay is considered to be the first block chain side chain, BTC Relay through ` ETH ` written in intelligent contract ` BTC ` main chain data, makes the ` ETH ` other intelligent by calling the BTC Relay contracts ` BTC ` main chain data, the technology part is the introduction of a third party intermediary, and no better achieve decentralization.
+
+##### Hash-locking
+Hash locking technology is A cross-chain transaction in which the transaction party first provides the contract unlocking secret key of the asset locking on the B chain to the recipient through time locking on the A chain to complete the cross-chain transaction at the agreed time. It originated from the lightning network.
+
+HLC's transaction model is done using an OP script similar to BTC and is well suited for cross-chain implementations using hash time locking.
+
+## Specification
+
+##### Cross-chain transaction process
+
+* Alice holds `BTC`, demand `BTC` -> `HLC`;
+* Bob holds `HLC`, he needs `HLC`-> `BTC`;
+* The transaction is initiated by Alice;
+
+image::./hip-0006/process.jpg[]
+
+1、Alice Create the unlock key:
+
+```js
+Unlock the secret key : < Secret >;
+
+// Key hash: < SecretHash > = RIPEMD160( < Secret > );
+Unlock the public key : < SecretHash >;
+```
+
+And lock `BTC` into the trading contract, and lock `BTC` into the contract. The contract output condition is:
+
+```json
+{
+    "txid": "< BTC hash lock contract txid >",
+    "vout":[
+        {
+            "value": 1,
+            "scriptPubKey": "
+                IF
+                    OP_SHA256 <Secret hash> OP_EQUALVERIFY
+                    OP_DUP <Bob Pubkey> OP_CHECKSIG
+                ELSE
+                    <2 days> CHECKSEQUENCEVERIFY DROP
+                    OP_DUP <Alice Pubkey> OP_CHECKSIG
+                ENDIF",
+            "type": "P2SH"
+        }
+    ]
+}
+```
+
+The unlock condition of P2SH script is that Alice can redeem BTC after the holder or more than 48 hours;
+
+2、Bob creates the same hash lock contract with Alice in `HLC` main chain according to < Secret hash > , but after more than 48 hours, Alice can redeem `HLC`, `Bob` creates the following contract:
+
+```json
+{
+    "txid": "< HLC hash lock contract txid >",
+    "vout":[
+        {
+            "value": 100,
+            "scriptPubKey": "
+                IF
+                    OP_SHA256 <Secret hash> OP_EQUALVERIFY
+                    OP_DUP <Alice Pubkey> OP_CHECKSIG
+                ELSE
+                    <2 days> CHECKSEQUENCEVERIFY DROP
+                    OP_DUP <Bob Pubkey> CHECKSIG
+                ENDIF",
+            "type": "P2SH"
+        }
+    ]
+}
+```
+
+3、Alice creates a transaction in the `HLC` main chain using < Secret > :
+
+```json
+{
+    "vin":[
+        {
+            "txid": "< HLC hash lock contract txid >",
+            "vout": 0,
+            "scriptSig": " ... <Secret> "
+        }
+    ]
+}
+```
+
+Alice broadcasts the contract to the `HLC` host network;
+
+4、Bob gets < Secret > through Alice's trading script and USES it:
+
+```json
+{
+    "vin":[
+        {
+            "txid": "< BTC hash lock contract txid >",
+            "vout": 0,
+            "scriptSig": " ... <Secret> "
+        }
+    ]
+}
+```
+
+Will Alice a `BTC`  proposed to his wallet, transaction is complete;
+
+> if Alice and Bob do not complete the transaction, both parties can redeem the token in the contract 48 hours later.
+
+### Contract interface
+
+Cross-chain technology needs to develop corresponding trading scripts based on its intelligent contracts on different main chains. Whether it is an intelligent contract based on OP script or a Turing complete intelligent contract similar to **solidity**, cross-chain technology involves five unified executive procedures.
+
+The cross-chain contract is mainly composed of five interfaces:
+
+1. Create P2SH hash time lock transaction: **initiate**;
+
+2. According to initiate's contract, create a corresponding contract on the second main chain: **participate** ;
+3. The secret key was Shared and the token operation in the purchase contract was extracted: **purchase**;
+4. When the transaction exceeds the specified time, the user gets back the token (refund operation) in the contract: **refund**;
+5. Verify the correctness of the number, address and time parameters of the time lock contract: **auditcontract**;
+
+## Test Cases
+
+1、Alice and Bob to create their own BTC addresses are used to exchange `BTC`;
+
+```
+Alice BTC Refund Address = myBUMQTmZGK8yKLDranjSQEHbCYCaaywQD;
+Alice BTC PublicKeyHash = c1c3092d17c917c2799c041aeaeac18822772149;
+
+Alice HLC Address = RmBjWbDYbPZjBpSgVV9wgFWaeDcsZj9yC6h;
+Alice HLC PublicKeyHash = 3be7b53b6b6455afd91cc7367061bb02dfb99fd4;
+
+-----------------------------------------------------------------
+
+Bob BTC Address = n1EDt1Qh58pUT7iiUT8NCNXXJQgLhFCj4C;
+Bob BTC PublicKeyHash  = d8387451a961898753fe62534d6e57117ec49d9c;
+
+Bob HLC Address = RmEwoT5YGhbNhR5r8a3UhoZcRBwyEqK9Sry;
+Bob HLC PublicKeyHash  = 5f23268d198d18fd7848cad6b79642e1d4c37459;
+```
+
+2、Alice **initiate** initiate method is used to create `BTC` hash chain contracts;
+
+```ts
+/**
+ * Generates the hash lock key
+ * SecretHash = ripemd160( Secret )
+**/
+Secret: a4d8949b871e33de9a8297fc074368deff04acd3eda60d0fc4aa61f6ec3d8db5 ;
+SecretHash: 906057225a47efadf761ffdc7da4baeb90de2230;
+
+/**
+ * Create a contract lock with Bob's address and SecretHash
+ * The time lock is created through Alice's public key and the contract validity period 8036bf5c [2019.4.24 00:00:00]
+**/
+OP_IF
+    OP_RIPEMD160 906057225a47efadf761ffdc7da4baeb90de2230 OP_EQUALVERIFY
+    OP_DUP OP_HASH160 d8387451a961898753fe62534d6e57117ec49d9c
+OP_ELSE
+    8036bf5c OP_CHECKLOCKTIMEVERIFY
+    OP_DROP OP_DUP OP_HASH160 c1c3092d17c917c2799c041aeaeac18822772149
+OP_ENDIF OP_EQUALVERIFY OP_CHECKSIG
+
+/**
+ * Serialize the contract to get the contract lock script
+**/
+BTC Contract: 63a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888ac;
+
+/**
+ * Serialize the contract HASH160 to get the P2SH hash
+ * Get the P2SH address through the P2SH hash
+**/
+P2SH hash: 8326823f27355048f82b1a9388815ddf16fee8ac;
+
+scriptPubKey: OP_HASH160 8326823f27355048f82b1a9388815ddf16fee8ac OP_EQUAL;
+
+P2SH Address: 2N5Cge3sqNY3J8fdxF9vKviLnEmhM3EC2Zx;
+
+/**
+ * Generate a transaction using UTXO
+**/
+transaction hash: d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a;
+
+transaction raw: 02000000013725cc840ec32b7d508fffe4a280fddbd85bd974aa0c8fa06a3479a606d1b37a010000006a47304402207a7f69c9eeb451b0f3259c98086626f6a1b966b1401a55b780fbea0ebc6b88c7022007db81f1c291c04f94e3d1368bd729727f2a4ded8c9570d5d2c4e36be8e65fa5012103136ed2c501056a6f8e6d57578e24d36ff1055c552ff0f8a28ba7bb284efeec2affffffff02504600000000000017a9148326823f27355048f82b1a9388815ddf16fee8ac872f750000000000001976a91446d96e0eb3f7de705b860347e451b9c41af72cd288ac00000000;
+```
+
+4、Alice creates **refund** creates a redemption contract;
+
+```ts
+/**
+ * Alice can redeem the locked untraded BTC to her wallet address through her own P2PKH address after the contract expires.
+ * vin script: < sign > [ALL] < Alice Public Key > 0 < BTC Contract >;
+ * 0 means executing the OP_ELESE part;
+ * locktime >= 8036bf5c(1556035200)
+ * sequence = 0
+**/
+redeemScript : 304402204872d777151faa92b052647668636c49be20e9ef330bdf0c2d6544748f265c6102204244250fa4fb4f7daa6d0686f05ad70991476fb7638d38cd8be4441e0427531801[ALL] 023e4cc6f9ca030345a9e4e6f3859eae50169d6336001989f11ca71c67fd499541 OP_0 63a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888ac;
+
+transaction refund hash: 4f759182519ed3f201e36c8cb291052cef4bafe8b20d0f54623b25af8ef65a31;
+
+transaction raw: 02000000012a4483ae48657dc6dfe16ff43ff077906fff2d2a6869ec0f98cd998fa67706d000000000be47304402204872d777151faa92b052647668636c49be20e9ef330bdf0c2d6544748f265c6102204244250fa4fb4f7daa6d0686f05ad70991476fb7638d38cd8be4441e042753180121023e4cc6f9ca030345a9e4e6f3859eae50169d6336001989f11ca71c67fd499541004c5163a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888ac000000000168420000000000001976a914c1c3092d17c917c2799c041aeaeac1882277214988ac8036bf5c;
+```
+
+5、Bob using **auditcontract** to verify the smart contract;
+
+```ts
+/**
+ * Bob can verify the lock contract address and content through the contract script
+**/
+auditcontract --testnet 63a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888ac;
+
+Contract address: 2N5Cge3sqNY3J8fdxF9vKviLnEmhM3EC2Zx;
+Recipient address: n1EDt1Qh58pUT7iiUT8NCNXXJQgLhFCj4C;
+Author’s refund address: myBUMQTmZGK8yKLDranjSQEHbCYCaaywQD;
+
+Secret hash: 906057225a47efadf761ffdc7da4baeb90de2230;
+
+locktime: 8036bf5c;
+Contract Value: 0.00018 BTC;
+```
+
+6、Bob USES participate **participate** create `HLC` hash chain contracts;
+
+```ts
+/**
+ * Bob use private key create HLC address hash chain contracts;
+ * Expiration time f0d6bd5c => 1555945200 (2019.4.22 23:00:00)
+**/
+OP_IF
+    OP_RIPEMD160 906057225a47efadf761ffdc7da4baeb90de2230 OP_EQUALVERIFY
+    OP_DUP OP_HASH160 3be7b53b6b6455afd91cc7367061bb02dfb99fd4
+OP_ELSE
+    f0d6bd5c OP_CHECKLOCKTIMEVERIFY
+    OP_DROP OP_DUP OP_HASH160 5f23268d198d18fd7848cad6b79642e1d4c37459
+OP_ENDIF OP_EQUALVERIFY OP_CHECKSIG
+
+
+/**
+ * Serialize the contract to get the contract lock script
+**/
+HLC Contract: 63a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac;
+
+/**
+ * Serialize the contract HLCHASH160 to get the P2SH script hash
+ * nx hash160 contract script
+**/
+HLC P2SH Hash: 41a800e42f3d54ce0af667d0a9a554f852ceaace;
+
+/**
+ * Generate the P2SH address
+ * netID: {0x0d, 0xc2}
+ * nx blake2b256 0dc241a800e42f3d54ce0af667d0a9a554f852ceaace;
+ * nx blake2b256 10836f8c690e6d3ec365c354e2ed2a428ac14277bae3fa2ad0c80da8f2690048;
+ * nx base58-encode 0dc241a800e42f3d54ce0af667d0a9a554f852ceaace17fb9afc;
+**/
+scriptPubKey: OP_HASH160 41a800e42f3d54ce0af667d0a9a554f852ceaace OP_EQUAL;
+
+
+P2SH Address: RSHNa412XbFvnNdcKeKd2SiZt4gBYDxyx91;
+
+/**
+ * nx tx-encode -i a76cb4e77f5a731b416f1ca920930ba04a13835d741386dc2e955d6da7cd7181:0 -l 0 -o RSHNa412XbFvnNdcKeKd2SiZt4gBYDxyx91:0.9 -o RmEwoT5YGhbNhR5r8a3UhoZcRBwyEqK9Sry:0.05;
+ * nx tx-sign -k <Bob HLC private> <transaction raw>
+**/
+transaction hash: 9dd45d0719ce1a6c1c566924a47edb2cd7df8ade4e21b7dd9fc4ef4b2d84e701;
+
+transaction txid: 8c31554e3e1913736c511a5391aeb55443ae03b97160f8f75f19d443bcde8fc7;
+
+transaction raw: 01000000018171cda76d5d952edc8613745d83134aa00b9320a91c6f411b735a7fe7b46ca700000000ffffffff02404b4c00000000001976a9145f23268d198d18fd7848cad6b79642e1d4c3745988ac804a5d050000000017a91441a800e42f3d54ce0af667d0a9a554f852ceaace87000000000000000001000000000000000000000000000000006b483045022100bc112bd97f8b70f201999e490a9685c65c488e2e0aca8fa25b46ed777ca0634402200813ef3d2a98a21f2172f612da72a9b758ed32b37673581e49a144004a41a02f0121029392d658b8f9c85461e462a1f4fce8574d3cd343cf787c4b39c458d218ca8630;
+```
+
+7、 Alice redeem by use of a Secret to obtain `HLC`;
+
+```ts
+/**
+ * Basic unlocking based on lock contract configuration
+ * Alice USES Secret to fetch the HLC
+ * redeem script： <sign> [ALL] < Alice Public Key by HLC > < Secret > OP_1 < HLC Contract >
+**/
+redeemScript: 304402201e9f206d52027e0a40837c088717c3b5b93a23994fabd1ab154208b20b730eb10220452be463d8620cf91d8809db5ce92bae16b35bc46b3313e971994ba60453fd5601 022851a9855c779543980085293b0c9f48f3bda9d7b2a5975bd3e4d89e92eeefd5 OP_1 63a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac;
+
+/**
+ * Create a raw
+ * Structural trader
+**/
+
+transaction hash: 055bf321999add1bcfe66fc68d9a2717319bb0a837e06498a278e279e20b8eef;
+
+transaction txid: 287a194c1f865bdfab1c23faaee33a07d2cb44a45267650e6d9a25bde305ad35;
+
+transaction raw: 0100000001c78fdebc43d4195ff7f86071b903ae4354b5ae91531a516c7313193e4e55318c010000000000000001e0c35b05000000001976a9143be7b53b6b6455afd91cc7367061bb02dfb99fd488acf0d6bd5c000000000100000000000000000000000000000000be47304402201e9f206d52027e0a40837c088717c3b5b93a23994fabd1ab154208b20b730eb10220452be463d8620cf91d8809db5ce92bae16b35bc46b3313e971994ba60453fd560121022851a9855c779543980085293b0c9f48f3bda9d7b2a5975bd3e4d89e92eeefd5514c5163a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac
+
+```
+
+8、Eight, and Bob get Secret redemption `BTC`;
+
+```ts
+/**
+ * Bob obtains Sercet through HLC transaction hash;
+**/
+Sercet = a4d8949b871e33de9a8297fc074368deff04acd3eda60d0fc4aa61f6ec3d8db5;
+ 
+/**
+ * Bob creates the redeem script;
+ * redeem script: <sign> [ALL] < Bob Public Key by BTC > < Secret > OP_1 < BTC Contract >;
+**/
+30450221008838c89a677ec0c215887429a1468a8fa5f6a1b395e653d6acaf6078b9f82d6e02200e6c86364c3adea40fff75bedca92f9bb0e20078cd29cf6210114ce68dc7a92101[ALL] 029392d658b8f9c85461e462a1f4fce8574d3cd343cf787c4b39c458d218ca8630 a4d8949b871e33de9a8297fc074368deff04acd3eda60d0fc4aa61f6ec3d8db5 OP_1 63a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888ac;
+
+/**
+ * Create a raw
+ * Structural trader
+**/
+
+transaction hash: 2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d
+
+transaction raw: 02000000012a4483ae48657dc6dfe16ff43ff077906fff2d2a6869ec0f98cd998fa67706d000000000e04830450221008838c89a677ec0c215887429a1468a8fa5f6a1b395e653d6acaf6078b9f82d6e02200e6c86364c3adea40fff75bedca92f9bb0e20078cd29cf6210114ce68dc7a9210121029392d658b8f9c85461e462a1f4fce8574d3cd343cf787c4b39c458d218ca863020a4d8949b871e33de9a8297fc074368deff04acd3eda60d0fc4aa61f6ec3d8db5514c5163a614906057225a47efadf761ffdc7da4baeb90de22308876a914d8387451a961898753fe62534d6e57117ec49d9c67048036bf5cb17576a914c1c3092d17c917c2799c041aeaeac188227721496888acffffffff0168420000000000001976a914d8387451a961898753fe62534d6e57117ec49d9c88ac00000000;
+```
+
+### BTC Lock contract browser query address
+
+|===
+|Description|Transaction|
+|Bitcoin contract created by Alice| https://test-insight.bitpay.com/tx/d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a[d00677a68f99cd980fec69682a2dff6f9077f03ff46fe1dfc67d6548ae83442a]|
+|Bitcoin Secret contract created by Bob | https://test-insight.bitpay.com/tx/2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d[2c3a424ede848ac3cc68f2346faef9fbeb89244cb36c58f0a0af43e69249ba6d]|
+|===
+
+## See also
+
+`HLC` across the realization of the chain technology mainly include JavaScript  and golang version two implementations, golang runs on the client side, JavaScript will be integrated into the `HLC` web version of light in the wallet, and through the API will complete the transaction on the web end signature sequence synchronization to miners.
+
+The first stage is to realize the atomic exchange of tokens based on UTXO financial model:
+
+* HalalChain
+* Bitcoin
+* Decred
+* Litecoin
+* Bitcoin Cash
+* Zcoin
+
+In the second stage, the financial model based on "account balance" is implemented:
+
+* ethereum

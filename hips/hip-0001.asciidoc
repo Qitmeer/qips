@@ -31,9 +31,9 @@ There are three types of HIP:
 
 ## HIP Work Flow
 
-1. a draft HIP should be presented as a pull request(PR). This gives the author a chance to continuously edit the draft EIP for proper formatting and quality. This also allows for further public comment and the author of the HIP to address concerns about the proposal.
+1. a draft HIP should be presented as a pull request(PR). This gives the author a chance to continuously edit the draft HIP for proper formatting and quality. This also allows for further public comment and the author of the HIP to address concerns about the proposal.
 
-2. If the HIP collaborators approve, the HIP editor will assign the HIP a number (generally the issue or PR number related to the EIP), label it as a category, give it status “Draft”, and add it to the git repository.
+2. If the HIP collaborators approve, the HIP editor will assign the HIP a number (generally the issue or PR number related to the HIP), label it as a category, give it status “Draft”, and add it to the git repository.
 
 3. The HIPs may a standard, informational or process HIP, which consist of design document, implementation, and finally if warranted an update to the formal specification. The HIP should be reviewed and accepted before an implementation is begun, unless an implementation will aid people in studying the HIP. Standards HIPs must be implemented before it can be considered Final.
 
