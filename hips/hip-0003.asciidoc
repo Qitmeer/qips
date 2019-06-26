@@ -8,7 +8,7 @@
     Replaces (*optional): none
 
 ## Abstract
-Now the HLC block size is 124,the type of the ntime is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
+Now the HLC block size is 124,the type of the time in header is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
 
 image::hip-0003/block.png[]
 
@@ -99,7 +99,7 @@ It run will in the private network,when mining new block,it don't occur any exce
 
 ## Implementation
 
-see https://git.diabin.com/HLC/nox/pulls/8
+see https://github.com/HalalChain/qitmeer/blob/master/core/types/block.go[Qitmeer]
 
 ## Test Cases
 
