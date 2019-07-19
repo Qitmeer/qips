@@ -1,0 +1,17 @@
+    HIP: 0010
+    Title: The Numerical Way of Offline Confirmation in SPECTRE
+    Author: Zhixiang Zhu <zzxiang21cn@hotmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-07-19
+
+## Abstract
+
+## Motivation
+
+
+## Specification
+
+
+image::hip-0010/algorithm_3.jpg[]
+
