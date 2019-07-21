@@ -5,8 +5,6 @@
     Status: Draft
     Created: 2019-05-05
 
-## Abstract
-
 ## Motivation
 
 HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
@@ -21,10 +19,24 @@ the online way. This proposal adopts the same way.
 
 ## Specification
 
-When a node _v_ receives a block _x_, it loops to calculate the online risk of the block with
-Algorithm 7 in the SPECTRE paper. It accepts the block when the risk is smaller than a given
-threshold _&#1013;_. The online confirmation time of block _x_ in node _v_ is the time since _x_ is
-received by _v_ until _x_ is accpeted by _v_.
+### Online confirmation and offline confirmation
+
+By adopting online confirmation policy, a mining node must keep online and maintain good connections
+with other nodes in the mining network before a block gains confirmation since the node received
+that block. This assumption is highly reasonable for many practical scenarios, e.g., a cashier
+serving a continuous line of customers. The main benefit of the online version is that it relies on
+a tighter analysis, and therefore accepts transactions slightly faster.
+
+If the mining node may become offline before the received node gains confirmation, the node should
+adopt offline policy to confirm the acception of the block. The offline policy will be described in
+link:hip-0010.asciidoc[another proposal].
+
+### How to calculate online confirmation time
+
+When a node _v_ receives a block _x_, it loops to calculate a risk value of the block with Algorithm
+7 in the SPECTRE paper. It accepts the block when the risk is smaller than a given threshold
+_&#1013;_. The online confirmation time of block _x_ in node _v_ is the time since _x_ is received
+by _v_ until _x_ is accpeted by _v_.
 
 image::hip-0008/algorithm_7.png[]
 
