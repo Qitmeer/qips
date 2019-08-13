@@ -21,7 +21,7 @@ When looking at the chain of inheritance, meaning - when starting from a given b
 
 As in Algorithm 1 of [1], in this version the bluest of all the tips (the one which maximizes the number of blue blocks in its past) of a given DAG induces the coloring of the entire graph; we’ll call this block the coloring tip of the entire DAG. Because the coloring of its past is fixed, it is only left to calculate the coloring and ordering of blocks not in its past, its antipast.
 
-image::hip-0014/p1.png[blockdag]
+image::hip-0014/p1.gif[blockdag,800]
 
 By looking at an ”imaginary” block whose parents are all blocks with in-degree 0 in the DAG, we get that its coloring parent is the coloring tip of the DAG, and that the blocks that it adds to the coloring are those not colored by its coloring parent - meaning exactly the antipast of the coloring parent. Call this imaginary block the virtual block of the DAG, and note that the coloring of its past is exactly the coloring induced on the entire graph.
 
@@ -32,7 +32,7 @@ Algorithm 1 of [1] can be redefined recursively in terms of diffpast, and genera
 
 To receive algorithm 1 of [1] from algorithm 11 presented here, simply create a new PHANTOM block-DAG and the following rule as an input:
 
-image::hip-0014/p2.png[blockdag]
+image::hip-0014/p2.gif[blockdag,800]
 
 Then, for the k value specified, calling algorithm 11 on a graph G which was constructed will produce the same output as calling algorithm 1 of [1] on G.
 In order to add blocks efficiently to a PHANTOM block-DAG, its coloring rule needs to be implemented efficiently. But, it is hard to compute the blue anticone size of an arbitrary block in accordance with an arbitrary coloring, meaning
@@ -42,13 +42,13 @@ In order to add blocks efficiently to a PHANTOM block-DAG, its coloring rule nee
 for a block b, even if it is ”reasonably” close to the leaves of G.
 In lieu of an efficient method and data-structures to retrieve the above, rule 1 wasn’t used in the implementation presented here. Instead, the following rule was:
 
-image::hip-0014/p3.png[blockdag]
+image::hip-0014/p3.gif[blockdag,800]
 
 Like rule 1, rule 2 ”punishes” withheld blocks, whereas the measure here is the number of blue blocks that are referenced by blocks on the main chain of G but not on the coloring chain whose tip is b. Taken together with the greedy selection rule for the main coloring chain, this incentivizes miners to reference all currently known leaves as the parents of a newly mined block, and to publish it as soon as possible.
 This rule is efficiently computed using algorithm 9: given a k-chain such that the block of lowest height contained in it is of height h, coloring a given block takes at most O(height(b) − h).
 
-image::hip-0014/p4.png[blockdag]
-image::hip-0014/p5.png[blockdag]
+image::hip-0014/p4.gif[blockdag,800]
+image::hip-0014/p5.gif[blockdag,800]
 
 As the PHANTOM block-DAG data structure remembers the blue diff-past for every block including the virtual block, the coloring of the entire graph according to the greedy selection rule is given by chaining together the diffpast colorings of every block along the main coloring chain, starting with the virtual and finishing with the genesis, as computed in algorithm 11.
 
