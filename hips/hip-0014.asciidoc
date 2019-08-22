@@ -1,0 +1,58 @@
+    HIP: 14
+    Title: DAG Algo v2:PHANTOM
+    Author: Jin <lochjin@gmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-04-20
+
+## Abstract
+
+PHANTOM[1] is one of the Block DAG algorithms we use. It is a new protocol for distributed transaction confirmation designed to be both scalable and secure, one-upping the Blockchain protocol and its famous scalability-security trade-off. It is a protocol that enjoys a very large transaction throughput compared to Bitcoin. Presented here is an efficient implementation of a variant of the protocol.
+
+## Introduction
+
+Presented here is a greedy implementation of PHANTOM, meaning that each block ”inherits” the coloring of the parent block which maximizes the number of blue blocks in its past. The block from which the coloring is inherited will be termed its coloring parent. In addition to the inherited coloring, each block colors (according to a given coloring rule) all blocks in its past that weren’t colored by its coloring parent.
+
+The inheritance means that for each block, the coloring (and ordering, given the right algorithm) of blocks ”behind” its coloring parent is fixed. Thus, saving the changes only, the diffpast, provides a solid base for efficient coloring and or- dering algorithms, even in cases of so-called ”reorganizations”, or reorgs, events where a previously accepted colouring/ordering for the DAG needs to be changed dramatically as a result of the addition of a new block.
+
+When looking at the chain of inheritance, meaning - when starting from a given block block and looking at its coloring parent, and the coloring parent of its coloring parent, etc’, a coloring chain is received, thus block can be referred to as the coloring chains tip. Because each block on the chain colors past blocks that weren’t colored by its parent, this coloring chain induces a coloring on all the past of block.
+
+## Specification
+
+As in Algorithm 1 of [1], in this version the bluest of all the tips (the one which maximizes the number of blue blocks in its past) of a given DAG induces the coloring of the entire graph; we’ll call this block the coloring tip of the entire DAG. Because the coloring of its past is fixed, it is only left to calculate the coloring and ordering of blocks not in its past, its antipast.
+
+image::hip-0014/p1.gif[blockdag,800]
+
+By looking at an ”imaginary” block whose parents are all blocks with in-degree 0 in the DAG, we get that its coloring parent is the coloring tip of the DAG, and that the blocks that it adds to the coloring are those not colored by its coloring parent - meaning exactly the antipast of the coloring parent. Call this imaginary block the virtual block of the DAG, and note that the coloring of its past is exactly the coloring induced on the entire graph.
+
+
+### Algorithms
+
+Algorithm 1 of [1] can be redefined recursively in terms of diffpast, and generalized to use any arbitrary coloring rule instead of an anticone based one.
+
+To receive algorithm 1 of [1] from algorithm 11 presented here, simply create a new PHANTOM block-DAG and the following rule as an input:
+
+image::hip-0014/p2.gif[blockdag,800]
+
+Then, for the k value specified, calling algorithm 11 on a graph G which was constructed will produce the same output as calling algorithm 1 of [1] on G.
+In order to add blocks efficiently to a PHANTOM block-DAG, its coloring rule needs to be implemented efficiently. But, it is hard to compute the blue anticone size of an arbitrary block in accordance with an arbitrary coloring, meaning
+
+ * |anticone(G, b) ∩ GET-BLUE(G)|
+
+for a block b, even if it is ”reasonably” close to the leaves of G.
+In lieu of an efficient method and data-structures to retrieve the above, rule 1 wasn’t used in the implementation presented here. Instead, the following rule was:
+
+image::hip-0014/p3.gif[blockdag,800]
+
+Like rule 1, rule 2 ”punishes” withheld blocks, whereas the measure here is the number of blue blocks that are referenced by blocks on the main chain of G but not on the coloring chain whose tip is b. Taken together with the greedy selection rule for the main coloring chain, this incentivizes miners to reference all currently known leaves as the parents of a newly mined block, and to publish it as soon as possible.
+This rule is efficiently computed using algorithm 9: given a k-chain such that the block of lowest height contained in it is of height h, coloring a given block takes at most O(height(b) − h).
+
+image::hip-0014/p4.gif[blockdag,800]
+image::hip-0014/p5.gif[blockdag,800]
+
+As the PHANTOM block-DAG data structure remembers the blue diff-past for every block including the virtual block, the coloring of the entire graph according to the greedy selection rule is given by chaining together the diffpast colorings of every block along the main coloring chain, starting with the virtual and finishing with the genesis, as computed in algorithm 11.
+
+## References
+<<1>> Y. Sompolinsky and A. Zohary, PHANTOM: A Scalable BlockDAG protocol, 2018.
+
+<<2>> AVIV YAISH, PHANTOM: AN EFFICIENT IMPLEMENTATION
