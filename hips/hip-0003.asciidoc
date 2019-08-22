@@ -8,7 +8,7 @@
     Replaces (*optional): none
 
 ## Abstract
-Now the HLC block size is 124,the type of the time in header is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
+Now the Qitmeer block size is 124,the type of the time in header is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
 
 image::hip-0003/block.png[]
 
@@ -95,15 +95,15 @@ This is the core block change in private network ,so it will need remove the old
 
 ## Use Cases
 
-It run will in the private network,when mining new block,it don't occur any exceptions.
+It run will in the test network,when mining new block,it don't occur any exceptions.
 
 ## Implementation
 
-see https://github.com/HalalChain/qitmeer/blob/master/core/types/block.go[Qitmeer]
+see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[qitmeer-lib]
 
 ## Test Cases
 
-In the git mining-dev repo,can test.
+see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[docker-test]
 
 ## See also
 
