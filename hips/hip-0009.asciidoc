@@ -1,4 +1,4 @@
-    HIP: 9
+    QIP: 9
     Title: Block Reward Schedule and Transaction Fees Disign
     Author: blocklee<block.lee121@gmail.com>
     Category: Core

@@ -1,4 +1,4 @@
-    HIP: 0008
+    QIP: 0008
     Title: The Numerical Way of Calculating Online Confirmation Times in SPECTRE
     Author: Zhixiang Zhu <zzxiang21cn@hotmail.com>
     Category: Core
@@ -7,7 +7,7 @@
 
 ## Motivation
 
-HLC adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
+Qitmeer adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
 read and understand from developers' or implementors' perspectives. Therefore, it is not easy to
 find out the explicit algorithm or formula to calculate the exact confirmation time of a block. This
 proposal tries to solve the problem by focusing on describing the method to calculate confirmation
@@ -111,4 +111,4 @@ image::hip-0008/risk_hidden_converted.svg[]
 Figure 4. The converted formula _risk_hidden_.
 
 With the converted formula we are able to calculate _risk_hidden_ in numerical way. We provide our
-implementation with R: https://github.com/HalalChain/spectre-poc/blob/master/risk_hidden.R
+implementation with R: https://github.com/Qitmeer/spectre-poc/blob/master/risk_hidden.R

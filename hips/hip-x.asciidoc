@@ -1,33 +1,33 @@
-This is the suggested template for new HIPs.
+This is the suggested template for new QIPs.
 
-In general, we use pull request number of HIP repostory as the HIP number, When opening a pull request to submit your HIP, please use an naming convention title in the filename, `hip-<hip_number>.asciidoc`.
+In general, we use pull request number of QIP repostory as the QIP number, When opening a pull request to submit your QIP, please use an naming convention title in the filename, `hip-<hip_number>.asciidoc`.
 
-    HIP: <to be assigned>
-    Title: <HIP title>
+    QIP: <to be assigned>
+    Title: <QIP title>
     Author: <list of authors' names and optionally, email addresses>
     Category: <Core | Networking | Interface | Application | Information | Process>
     Status: < Draft | Accepted | Deferred | Rejected | Withdrawn | Final | Superseded >
     Created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
-    Requires (*optional): <HIP number(s)>
-    Replaces (*optional): <HIP number(s)>
+    Requires (*optional): <QIP number(s)>
+    Replaces (*optional): <QIP number(s)>
 
 ## Abstract
 A short (~200 word) description of the technical issue being addressed.
 
 ## Motivation
-clearly explain why the HIP is needed or the existing protocol specification is inadequate to address the problem. submissions without sufficient motivation may be rejected outright.
+clearly explain why the QIP is needed or the existing protocol specification is inadequate to address the problem. submissions without sufficient motivation may be rejected outright.
 
 ## Specification
 The technical specification should describe the syntax and semantics of any new feature. 
 
 ## Backwards Compatibility
-All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The HIP must explain how the author proposes to deal with these incompatibilities. HIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
+All QIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The QIP must explain how the author proposes to deal with these incompatibilities. QIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
 
 ## Use Cases
 The use cases of an implementation are mandatory in most cases. Sometimes they are exchangeable with test cases.
 
 ## Implementation
-The implementations must be completed before any HIP is given status "Final", but it need not be completed before the HIP is accepted.
+The implementations must be completed before any QIP is given status "Final", but it need not be completed before the QIP is accepted.
 
 ## Test Cases
 Test cases for an implementation are mandatory in most case. it can choose to include links to test cases if applicable.

@@ -1,6 +1,6 @@
 
-    HIP: 2
-    Title: The HalalChain Naming Definition & Terminology
+    QIP: 2
+    Title: The Qitmeer Naming Definition & Terminology
     Author: Alex Wu <dindinw@users.noreply.github.com>
     Status: Draft
     Category: Information
@@ -8,7 +8,7 @@
 
 ## Abstract
 
-The Definition of the terminology and naming conventions are used in the HalalChain (HLC).
+The Definition of the terminology and naming conventions are used in the Qitmeer (QIT).
 
 ## Motivation
 
@@ -18,7 +18,8 @@ The Definition of the terminology and naming conventions are used in the HalalCh
 
 |===
 | Term  | Abv.    | Definition
-| MER   | Mer     | The minimum currency unit of the HLC
+| QIT   |  Qit    | The standard currency unit of the Qitmeer
+| MEER   | Mer     | The minimum currency unit of the Qitmeer
 |===
 
 ### Time Unit
@@ -72,6 +73,6 @@ The guardian looking out for the believers until they are awoken
 
 * 2019/01/08 Initial naming
 * 2019/01/11 Draft version 1
-* 2019/03/22 format to HIP
+* 2019/03/22 format to QIP
 * 2019/04/23 rename network name to qitmeer
 * 2019/04/23 add domain names

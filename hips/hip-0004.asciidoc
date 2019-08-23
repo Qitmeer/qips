@@ -1,4 +1,4 @@
-    HIP: 4
+    QIP: 4
     Title: DAG Consensus
     Author: Jin <lochjin@gmail.com>
     Category: Core
@@ -6,7 +6,7 @@
     Created: 2019-03-25
 
 # Abstract
-HLC adopts hybrid consensus that combines SPECTRE and GHOSTDAG (Phantom) in order to achieve fast confirmation and high throughput.
+Qitmeer adopts hybrid consensus that combines SPECTRE and GHOSTDAG (Phantom) in order to achieve fast confirmation and high throughput.
 
 
 ## Introduction
@@ -48,7 +48,7 @@ Now all the blocks in block 12' past have votes, 10 votes on x over 2 votes on y
 
 ## PHANTOM
 
-The high concurrency of DAG produces forks. A network's physical metrics are definite, say, propagation time that a block takes to travel around super majority network nodes, minimum bandwith of super majority nodes, also there are some parameters, such as block creation rate, faulty nodes percentage assumption. All lot these metrics and parameters determines the expected max fork number and then affects the throughput. HLC technology is based on a transaction model so partial ordering of transaction is suffient; however, PHANTOM's total ordering not only provides the strong liveness gurantee , also it serves for the reward mechanism. 
+The high concurrency of DAG produces forks. A network's physical metrics are definite, say, propagation time that a block takes to travel around super majority network nodes, minimum bandwith of super majority nodes, also there are some parameters, such as block creation rate, faulty nodes percentage assumption. All lot these metrics and parameters determines the expected max fork number and then affects the throughput. Qitmeer technology is based on a transaction model so partial ordering of transaction is suffient; however, PHANTOM's total ordering not only provides the strong liveness gurantee , also it serves for the reward mechanism. 
 
 Though SPECTRE's weak liveness won't affect honest users, it is more robust to make a strong liveness, that is every transaction, including the honest and the malicious,  can be accepted within definite time. SPECTRE can only guarantees parital ordering, to be more specific, pairwised ordering, PHANTOM is able to guarantee total ordering of all  blocks therefore we may produce a linear order. It is intuitive that if  nodes behave honestly, they will form a sub graph wherein each block has at most a specific number of forks, this number can be caculated from propagation time and block creation rate, denoted as $k$. This sub graph is denoted as k-cluter.  The biggest k-cluster is called  blue set and the rest blocks compose red set.
 
@@ -58,4 +58,4 @@ image::hip-0004/p.png[SPECTRE,436,396]
 
 TODO: Total ordering to solve fair reward mechanism
 
-Block DAG achieves consensus on the order of all events in it, HLC can easily extend this agreement to achieve consensus on the state . It simply iterate over all transactions according to the agreed order, and accept each transaction that is consistent with those accepted so far. 
+Block DAG achieves consensus on the order of all events in it, Qitmeer can easily extend this agreement to achieve consensus on the state . It simply iterate over all transactions according to the agreed order, and accept each transaction that is consistent with those accepted so far. 

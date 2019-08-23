@@ -1,4 +1,4 @@
-    HIP: 14
+    QIP: 14
     Title: DAG Algo v2:PHANTOM
     Author: Jin <lochjin@gmail.com>
     Category: Core

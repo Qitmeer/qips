@@ -1,5 +1,5 @@
-    HIP: 7
-    Title: <HIP title>
+    QIP: 7
+    Title: <QIP title>
     Author: Wayman Huo <i5d@live.com>
     Category: Interface
     Status: Draft
@@ -10,7 +10,7 @@
 The naming rules of development interface (API/RPC) is case-sensitive, but some method name are likely to lead to ambiguity, it is inconvenient to us. so case-insensitive naming rules is a better way. We can change RPC Server router to do that. 
 
 ## Motivation
-The current usage for the HLC api, E.g "getBlockhash" is correct,but "getBlockHash" is wrong,even though they are the same meaning. In accordance with the principle of case-sensitive,"getBlockHash" Should be correct,so this is ambiguity.
+The current usage for the Qitmeer api, E.g "getBlockhash" is correct,but "getBlockHash" is wrong,even though they are the same meaning. In accordance with the principle of case-sensitive,"getBlockHash" Should be correct,so this is ambiguity.
 ```sh
 #getBlockhash
 curl -i -X POST -H 'Content-type':'application/json' -d '{"jsonrpc": "1.0","method": "getBlockhash","params": [2],"id": 1}' http://127.0.0.1:8081
