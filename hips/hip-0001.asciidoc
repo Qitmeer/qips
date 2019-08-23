@@ -9,25 +9,25 @@
 ## What is an QIP ?
 QIP stands for Qitmeer Improvement Proposal. An QIP is a design document providing information to the Qitmeer community, or describing a new feature for Qitmeer or its processes or environment. The QIP should provide a concise technical specification of the feature and a rationale for the feature.
 
-We intend HIPs to be the primary mechanisms for proposing new features, for collecting community input on an issue, and for documenting the design decisions that have gone into Qitmeer.The QIP author is responsible for building consensus within the community and documenting dissenting opinions.
+We intend QIPs to be the primary mechanisms for proposing new features, for collecting community input on an issue, and for documenting the design decisions that have gone into Qitmeer.The QIP author is responsible for building consensus within the community and documenting dissenting opinions.
 
-Because the HIPs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal.
+Because the QIPs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal.
 
-For Qitmeer implementers, HIPs are a convenient way to track the progress of their implementation. Ideally each implementation maintainer would list the HIPs that they have implemented. This will give end users a convenient way to know the current status of a given implementation or library.
+For Qitmeer implementers, QIPs are a convenient way to track the progress of their implementation. Ideally each implementation maintainer would list the QIPs that they have implemented. This will give end users a convenient way to know the current status of a given implementation or library.
 
-the HIPs are written and maintained by developers with write access to the QIP codebase. The QIP editors monitor QIP changes, and correct any structure, grammar, spelling, or markup mistakes we see.
+the QIPs are written and maintained by developers with write access to the QIP codebase. The QIP editors monitor QIP changes, and correct any structure, grammar, spelling, or markup mistakes we see.
 
 ## QIP Types and Category
 
 There are three types of QIP:
 
--   A **Standard QIP** describes any design propose and change that affects the Qitmeer implementations, such as a change to the the network protocol, validity rules, proposed application standards/conventions, or any change or addition feature that affects the interoperability of applications using Qitmeer. Furthermore Standard HIPs can be broken down into the following categories.
+-   A **Standard QIP** describes any design propose and change that affects the Qitmeer implementations, such as a change to the the network protocol, validity rules, proposed application standards/conventions, or any change or addition feature that affects the interoperability of applications using Qitmeer. Furthermore Standard QIPs can be broken down into the following categories.
    * **Core** - Qitmeer Core related improvements.
    * **Networking** - includes improvements around network protocol specifications.
    * **Interface** - includes improvements around client [API/RPC] specifications and standards, and also certain language-level standards like method names etc.
    * **Application** - application-level standards and conventions. 
--   An **Informational QIP** provides general guidelines or information to the Qitmeer community, but does not propose a new feature. Informational HIPs do not necessarily represent Qitmeer community consensus or a recommendation, so users and implementers are free to ignore Informational HIPs or follow their advice.
--   A **Process QIP** describes a process surrounding Qitmeer or proposes a change to (or an event in) a process. Process HIPs are like Standards HIPs but apply to areas other than the Qitmeer protocol itself. they often require community consensus; unlike Informational HIPs, they are more than recommendations, and users are typically not free to ignore them.
+-   An **Informational QIP** provides general guidelines or information to the Qitmeer community, but does not propose a new feature. Informational QIPs do not necessarily represent Qitmeer community consensus or a recommendation, so users and implementers are free to ignore Informational QIPs or follow their advice.
+-   A **Process QIP** describes a process surrounding Qitmeer or proposes a change to (or an event in) a process. Process QIPs are like Standards QIPs but apply to areas other than the Qitmeer protocol itself. they often require community consensus; unlike Informational QIPs, they are more than recommendations, and users are typically not free to ignore them.
 
 ## QIP Work Flow
 
@@ -35,7 +35,7 @@ There are three types of QIP:
 
 2. If the QIP collaborators approve, the QIP editor will assign the QIP a number (generally the issue or PR number related to the QIP), label it as a category, give it status “Draft”, and add it to the git repository.
 
-3. The HIPs may a standard, informational or process QIP, which consist of design document, implementation, and finally if warranted an update to the formal specification. The QIP should be reviewed and accepted before an implementation is begun, unless an implementation will aid people in studying the QIP. Standards HIPs must be implemented before it can be considered Final.
+3. The QIPs may a standard, informational or process QIP, which consist of design document, implementation, and finally if warranted an update to the formal specification. The QIP should be reviewed and accepted before an implementation is begun, unless an implementation will aid people in studying the QIP. Standards QIPs must be implemented before it can be considered Final.
 
 4. Once an QIP has been accepted, the implementations must be completed. When the implementation is complete and accepted by the community, the status will be changed to “Final”.
 
@@ -45,14 +45,14 @@ There are three types of QIP:
 
 7. An QIP can also be replaced by a different QIP, then the original QIP is obsoleted.
 
-The possible paths of the status of HIPs are as follows:
+The possible paths of the status of QIPs are as follows:
 
 image::hip-0001/hip_process.png[]
 
 
 ## Formats and Templates
 
-1. HIPs should be written in markdown format. Image files should be included in a subdirectory for that QIP. ex: [hip-0001.asciidoc](hip-0001.asciidoc)'s images files should be included in the [hips/hip-0001](hip-0001) subdirectory of the HIPs repository.
+1. QIPs should be written in markdown format. Image files should be included in a subdirectory for that QIP. ex: [hip-0001.asciidoc](hip-0001.asciidoc)'s images files should be included in the [hips/hip-0001](hip-0001) subdirectory of the QIPs repository.
 
 2. Each QIP must begin with an RFC 822 style header preamble. The headers must appear in the following order. Headers marked with "*" are optional and are described below. All other headers are required.
 
@@ -72,7 +72,7 @@ image::hip-0001/hip_process.png[]
     * **Abstract**: A short (~200 word) description of the technical issue being addressed.
     * **Motivation**: clearly explain why the QIP is needed or the existing protocol specification is inadequate to address the problem. submissions without sufficient motivation may be rejected outright.
     * **Specification**: The technical specification should describe the syntax and semantics of any new feature.
-    * **Backwards Compatibility**: All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The QIP must explain how the author proposes to deal with these incompatibilities. QIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
+    * **Backwards Compatibility**: All QIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The QIP must explain how the author proposes to deal with these incompatibilities. QIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
     * **Use Cases**: The Use case for an implementation are mandatory in most case. sometimes it exchangable with test cases.
     * **Implementation**: The implementations must be completed before any QIP is given status "Final", but it need not be completed before the QIP is accepted.
     * **Test Cases**: Test cases for an implementation are mandatory in most case. it can choose to include links to test cases if applicable.

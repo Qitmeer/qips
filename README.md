@@ -1,21 +1,21 @@
-# The Qitmeer Improvement Proposals (HIPs)
+# The Qitmeer Improvement Proposals (QIPs)
 
   * [Introduction](#introduction)
   * [How to Contribute](#how-to-contribute)
-  * [Qitmeer Improvement Proposals (HIPs)](#Qitmeer-improvement-proposals-hips)
-     * [The HIPs Categories](#the-hips-categories)
-     * [The HIPs Status](#the-hips-status)
-     * [The List of HIPs](#the-list-of-hips)
+  * [Qitmeer Improvement Proposals (QIPs)](#Qitmeer-improvement-proposals-hips)
+     * [The QIPs Categories](#the-hips-categories)
+     * [The QIPs Status](#the-hips-status)
+     * [The List of QIPs](#the-list-of-hips)
 
 # Introduction
-The Qitmeer Improvement Proposals (HIPs) describe standards for the Qitmeer platform, including core protocol specifications, networking protocol, consensus algorithms, client APIs and application-level standards and conventions.
+The Qitmeer Improvement Proposals (QIPs) describe standards for the Qitmeer platform, including core protocol specifications, networking protocol, consensus algorithms, client APIs and application-level standards and conventions.
 
 # How to Contribute
-First read [QIP-1 : QIP Guidelines ](hips/hip-0001.asciidoc). Then clone the repository and add your QIP to it. There is a template QIP file [hip-x.asciidoc](hips/hip-x.asciidoc). You can copy and modify it to create an new QIP. Then submit a Pull Request to the [HIPs repository](https://github.com/Qitmeer/hips).
+First read [QIP-1 : QIP Guidelines ](hips/hip-0001.asciidoc). Then clone the repository and add your QIP to it. There is a template QIP file [hip-x.asciidoc](hips/hip-x.asciidoc). You can copy and modify it to create an new QIP. Then submit a Pull Request to the [QIPs repository](https://github.com/Qitmeer/hips).
 
-# Qitmeer Improvement Proposals (HIPs)
+# Qitmeer Improvement Proposals (QIPs)
 
-## The HIPs Categories
+## The QIPs Categories
   * **Core** - Qitmeer Core related improvements.
   * **Networking** - includes improvements around network protocol specifications.
   * **Interface** - includes improvements around client API/RPC specifications and standards, and also certain language-level standards like method names etc.
@@ -23,13 +23,13 @@ First read [QIP-1 : QIP Guidelines ](hips/hip-0001.asciidoc). Then clone the rep
   * **Information** - provides general guidelines or information to the Qitmeer community, but does not propose a new feature
   * **Process** - describe a process propose to an implementation, they often require community consensus.
 
-## The HIPs Status
+## The QIPs Status
   * **Draft** - an QIP that is open for discussion
   * **Accepted** - an QIP that is under designing and planned to be implemented.
   * **Final** - an QIP that has implemented and finalized
   * **Deferred** - an QIP that is not being considered for immediate implementation.
 
-## The List of HIPs
+## The List of QIPs
 
 | No. | Title                                                       | Author     | Type         | Status     |
 |-----| ----------------------------------------------------------- | ---------- | ------------ | ---------- |

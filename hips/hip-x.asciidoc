@@ -1,4 +1,4 @@
-This is the suggested template for new HIPs.
+This is the suggested template for new QIPs.
 
 In general, we use pull request number of QIP repostory as the QIP number, When opening a pull request to submit your QIP, please use an naming convention title in the filename, `hip-<hip_number>.asciidoc`.
 
@@ -21,7 +21,7 @@ clearly explain why the QIP is needed or the existing protocol specification is 
 The technical specification should describe the syntax and semantics of any new feature. 
 
 ## Backwards Compatibility
-All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The QIP must explain how the author proposes to deal with these incompatibilities. QIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
+All QIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The QIP must explain how the author proposes to deal with these incompatibilities. QIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
 
 ## Use Cases
 The use cases of an implementation are mandatory in most cases. Sometimes they are exchangeable with test cases.
