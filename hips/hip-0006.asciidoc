@@ -1,12 +1,12 @@
-    HIP: 6
-    Title: HLC-compatible-Across-Chain
+    QIP: 6
+    Title: Qitmeer-compatible-Across-Chain
     Author: zhang yi <mz467348631@outlook.com>
     Category: Application
     Status: Draft
     Created: 2019-04-24
 
 # Abstract
-HLC Across the chain technology is mainly to solve different main chain (such as: ` HLC ` and ` BTC `) problem of data exchange between the most direct cross chain technology application is "DEX ：distributed exchange", No third party participation will purse ` BTC ` into ` HLC `.
+Qitmeer cross-chain technology is mainly to solve different main chain (such as: ` Qitmeer ` and ` BTC `) problem of data exchange between the most direct cross chain technology application is "DEX ：distributed exchange", No third party participation will purse ` BTC ` into ` Qitmeer `.
 
 ## Introduction
 
@@ -24,14 +24,14 @@ Sidechains technology is one of the main chain of data for the input on the do n
 ##### Hash-locking
 Hash locking technology is A cross-chain transaction in which the transaction party first provides the contract unlocking secret key of the asset locking on the B chain to the recipient through time locking on the A chain to complete the cross-chain transaction at the agreed time. It originated from the lightning network.
 
-HLC's transaction model is done using an OP script similar to BTC and is well suited for cross-chain implementations using hash time locking.
+Qitmeer's transaction model is done using an OP script similar to BTC and is well suited for cross-chain implementations using hash time locking.
 
 ## Specification
 
 ##### Cross-chain transaction process
 
-* Alice holds `BTC`, demand `BTC` -> `HLC`;
-* Bob holds `HLC`, he needs `HLC`-> `BTC`;
+* Alice holds `BTC`, demand `BTC` -> `QIT`;
+* Bob holds `QIT`, he needs `QIT`-> `BTC`;
 * The transaction is initiated by Alice;
 
 image::./hip-0006/process.jpg[]
@@ -69,11 +69,11 @@ And lock `BTC` into the trading contract, and lock `BTC` into the contract. The 
 
 The unlock condition of P2SH script is that Alice can redeem BTC after the holder or more than 48 hours;
 
-2、Bob creates the same hash lock contract with Alice in `HLC` main chain according to < Secret hash > , but after more than 48 hours, Alice can redeem `HLC`, `Bob` creates the following contract:
+2、Bob creates the same hash lock contract with Alice in `QIT` main chain according to < Secret hash > , but after more than 48 hours, Alice can redeem `QIT`, `Bob` creates the following contract:
 
 ```json
 {
-    "txid": "< HLC hash lock contract txid >",
+    "txid": "< Qitmeer hash lock contract txid >",
     "vout":[
         {
             "value": 100,
@@ -91,13 +91,13 @@ The unlock condition of P2SH script is that Alice can redeem BTC after the holde
 }
 ```
 
-3、Alice creates a transaction in the `HLC` main chain using < Secret > :
+3、Alice creates a transaction in the `QIT` main chain using < Secret > :
 
 ```json
 {
     "vin":[
         {
-            "txid": "< HLC hash lock contract txid >",
+            "txid": "< Qitmeer hash lock contract txid >",
             "vout": 0,
             "scriptSig": " ... <Secret> "
         }
@@ -105,7 +105,7 @@ The unlock condition of P2SH script is that Alice can redeem BTC after the holde
 }
 ```
 
-Alice broadcasts the contract to the `HLC` host network;
+Alice broadcasts the contract to the `QIT` host network;
 
 4、Bob gets < Secret > through Alice's trading script and USES it:
 
@@ -146,16 +146,16 @@ The cross-chain contract is mainly composed of five interfaces:
 Alice BTC Refund Address = myBUMQTmZGK8yKLDranjSQEHbCYCaaywQD;
 Alice BTC PublicKeyHash = c1c3092d17c917c2799c041aeaeac18822772149;
 
-Alice HLC Address = RmBjWbDYbPZjBpSgVV9wgFWaeDcsZj9yC6h;
-Alice HLC PublicKeyHash = 3be7b53b6b6455afd91cc7367061bb02dfb99fd4;
+Alice Qitmeer Address = RmBjWbDYbPZjBpSgVV9wgFWaeDcsZj9yC6h;
+Alice Qitmeer PublicKeyHash = 3be7b53b6b6455afd91cc7367061bb02dfb99fd4;
 
 -----------------------------------------------------------------
 
 Bob BTC Address = n1EDt1Qh58pUT7iiUT8NCNXXJQgLhFCj4C;
 Bob BTC PublicKeyHash  = d8387451a961898753fe62534d6e57117ec49d9c;
 
-Bob HLC Address = RmEwoT5YGhbNhR5r8a3UhoZcRBwyEqK9Sry;
-Bob HLC PublicKeyHash  = 5f23268d198d18fd7848cad6b79642e1d4c37459;
+Bob Qitmeer Address = RmEwoT5YGhbNhR5r8a3UhoZcRBwyEqK9Sry;
+Bob Qitmeer PublicKeyHash  = 5f23268d198d18fd7848cad6b79642e1d4c37459;
 ```
 
 2、Alice **initiate** initiate method is used to create `BTC` hash chain contracts;
@@ -238,11 +238,11 @@ locktime: 8036bf5c;
 Contract Value: 0.00018 BTC;
 ```
 
-6、Bob USES participate **participate** create `HLC` hash chain contracts;
+6、Bob USES participate **participate** create `QIT` hash chain contracts;
 
 ```ts
 /**
- * Bob use private key create HLC address hash chain contracts;
+ * Bob use private key create Qitmeer address hash chain contracts;
  * Expiration time f0d6bd5c => 1555945200 (2019.4.22 23:00:00)
 **/
 OP_IF
@@ -257,13 +257,13 @@ OP_ENDIF OP_EQUALVERIFY OP_CHECKSIG
 /**
  * Serialize the contract to get the contract lock script
 **/
-HLC Contract: 63a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac;
+Qitmeer Contract: 63a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac;
 
 /**
- * Serialize the contract HLCHASH160 to get the P2SH script hash
+ * Serialize the contract QitmeerHASH160 to get the P2SH script hash
  * nx hash160 contract script
 **/
-HLC P2SH Hash: 41a800e42f3d54ce0af667d0a9a554f852ceaace;
+Qitmeer P2SH Hash: 41a800e42f3d54ce0af667d0a9a554f852ceaace;
 
 /**
  * Generate the P2SH address
@@ -279,7 +279,7 @@ P2SH Address: RSHNa412XbFvnNdcKeKd2SiZt4gBYDxyx91;
 
 /**
  * nx tx-encode -i a76cb4e77f5a731b416f1ca920930ba04a13835d741386dc2e955d6da7cd7181:0 -l 0 -o RSHNa412XbFvnNdcKeKd2SiZt4gBYDxyx91:0.9 -o RmEwoT5YGhbNhR5r8a3UhoZcRBwyEqK9Sry:0.05;
- * nx tx-sign -k <Bob HLC private> <transaction raw>
+ * nx tx-sign -k <Bob Qitmeer private> <transaction raw>
 **/
 transaction hash: 9dd45d0719ce1a6c1c566924a47edb2cd7df8ade4e21b7dd9fc4ef4b2d84e701;
 
@@ -288,13 +288,13 @@ transaction txid: 8c31554e3e1913736c511a5391aeb55443ae03b97160f8f75f19d443bcde8f
 transaction raw: 01000000018171cda76d5d952edc8613745d83134aa00b9320a91c6f411b735a7fe7b46ca700000000ffffffff02404b4c00000000001976a9145f23268d198d18fd7848cad6b79642e1d4c3745988ac804a5d050000000017a91441a800e42f3d54ce0af667d0a9a554f852ceaace87000000000000000001000000000000000000000000000000006b483045022100bc112bd97f8b70f201999e490a9685c65c488e2e0aca8fa25b46ed777ca0634402200813ef3d2a98a21f2172f612da72a9b758ed32b37673581e49a144004a41a02f0121029392d658b8f9c85461e462a1f4fce8574d3cd343cf787c4b39c458d218ca8630;
 ```
 
-7、 Alice redeem by use of a Secret to obtain `HLC`;
+7、 Alice redeem by use of a Secret to obtain `QIT`;
 
 ```ts
 /**
  * Basic unlocking based on lock contract configuration
- * Alice USES Secret to fetch the HLC
- * redeem script： <sign> [ALL] < Alice Public Key by HLC > < Secret > OP_1 < HLC Contract >
+ * Alice USES Secret to fetch the Qitmeer
+ * redeem script： <sign> [ALL] < Alice Public Key by Qitmeer > < Secret > OP_1 < Qitmeer Contract >
 **/
 redeemScript: 304402201e9f206d52027e0a40837c088717c3b5b93a23994fabd1ab154208b20b730eb10220452be463d8620cf91d8809db5ce92bae16b35bc46b3313e971994ba60453fd5601 022851a9855c779543980085293b0c9f48f3bda9d7b2a5975bd3e4d89e92eeefd5 OP_1 63a614906057225a47efadf761ffdc7da4baeb90de22308876a9143be7b53b6b6455afd91cc7367061bb02dfb99fd46704f0d6bd5cb17576a9145f23268d198d18fd7848cad6b79642e1d4c374596888ac;
 
@@ -315,7 +315,7 @@ transaction raw: 0100000001c78fdebc43d4195ff7f86071b903ae4354b5ae91531a516c73131
 
 ```ts
 /**
- * Bob obtains Sercet through HLC transaction hash;
+ * Bob obtains Sercet through Qitmeer transaction hash;
 **/
 Sercet = a4d8949b871e33de9a8297fc074368deff04acd3eda60d0fc4aa61f6ec3d8db5;
  
@@ -345,11 +345,11 @@ transaction raw: 02000000012a4483ae48657dc6dfe16ff43ff077906fff2d2a6869ec0f98cd9
 
 ## See also
 
-`HLC` across the realization of the chain technology mainly include JavaScript  and golang version two implementations, golang runs on the client side, JavaScript will be integrated into the `HLC` web version of light in the wallet, and through the API will complete the transaction on the web end signature sequence synchronization to miners.
+`QIT` across the realization of the chain technology mainly include JavaScript  and golang version two implementations, golang runs on the client side, JavaScript will be integrated into the `QIT` web version of light in the wallet, and through the API will complete the transaction on the web end signature sequence synchronization to miners.
 
 The first stage is to realize the atomic exchange of tokens based on UTXO financial model:
 
-* HalalChain
+* Qitmeer
 * Bitcoin
 * Decred
 * Litecoin

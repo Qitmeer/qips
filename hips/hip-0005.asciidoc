@@ -1,4 +1,4 @@
-    HIP: 0005
+    QIP: 0005
     Title: Cuckoo Cycle POW, a Programmatic Proof-of-Work
     Author: Eric <ray.lee7733@gmail.com>
     Category: Core
@@ -341,7 +341,7 @@ b661985959d996d5148aee0476a4c66a4deefcbb60441c36a44ffb011a193f80
 ```
 
 ## Implementation
-The reference Cuckoo-Cycle-PoW implementation located at https://github.com/HalalChain/qitmeer-lib/tree/cuckoo/crypto/cuckoo[Cuckoo-Cycle-PoW].
+The reference Cuckoo-Cycle-PoW implementation located at https://github.com/Qitmeer/qitmeer-lib/tree/cuckoo/crypto/cuckoo[Cuckoo-Cycle-PoW].
 
 ## See also
 The references links might list here

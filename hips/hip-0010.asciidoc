@@ -1,4 +1,4 @@
-    HIP: 0010
+    QIP: 0010
     Title: The Numerical Way of Offline Confirmation in SPECTRE
     Author: Zhixiang Zhu <zzxiang21cn@hotmail.com>
     Category: Core
