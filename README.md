@@ -47,7 +47,7 @@ First read [QIP-1 : QIP Guidelines ](qips/qip-0001.asciidoc). Then clone the rep
 | 14  | [DAG Algo v2:PHANTOM](qips/qip-0014.asciidoc)         | Jin  | Core | Draft |
 | 15  | [Qitmeer public chain for Real Estate](qips/qip-0015.md) |Abdussalam Onagun Ismail, Abdullah Han, Sulaiman Liu | Applications | Draft|
 | 16  | [Sukuk Use cases on QIT Public chain](qips/qip-0016.md) |Abdussalam Onagun Ismail, Abdullah Han | Applications | Draft|
-| 18  | [Create User's local wallet (Native B/S private wallet)](qips/qip-0018.md) | Application | Process | Draft|
+| 18  | [Create User's local wallet (Native B/S private wallet)](qips/qip-0018.asciidoc) | Application | Process | Draft|
 | 20   | [Compact storage in linearly ordered block DAG](qips/qip-0020.md) | forchain | Core | Draft|
 | 31  | [Mining and Pre-minding Design in DAG-POW System](qips/qip-0031.md)         | Jeremy Chen | Process | Draft |
 
