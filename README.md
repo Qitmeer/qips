@@ -49,5 +49,8 @@ First read [QIP-1 : QIP Guidelines ](qips/qip-0001.asciidoc). Then clone the rep
 | 16  | [Sukuk Use cases on QIT Public chain](qips/qip-0016.md) |Abdussalam Onagun Ismail, Abdullah Han | Applications | Draft|
 | 18  | [Create User's local wallet (Native B/S private wallet)](qips/qip-0018.md) | Application | Process | Draft|
 | 20   | [Compact storage in linearly ordered block DAG](qips/qip-0020.md) | forchain | Core | Draft|
+| 29   | [Taxing Design](qips/qip-0029.md) | xiaobai | Core | Draft|
 | 31  | [Mining and Pre-minding Design in DAG-POW System](qips/qip-0031.md)         | Jeremy Chen | Process | Draft |
+| 32  | [HLC-based decentralized gateway](qips/qip-0032.md)         | Zeyu Dai | Process | Draft |
+
 
