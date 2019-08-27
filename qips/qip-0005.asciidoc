@@ -288,7 +288,7 @@ it is any number between 0 and 31. Each nonce corresponds to two edge endpoints(
 
 To throw 32 edges into a graph, randomly:
 
-image::hip-0005/edge_generation.png[]
+image::qip-0005/edge_generation.png[]
 Figure 1. Building Nodes
 
 #### Edge Trimming
@@ -297,7 +297,7 @@ Leaf edges have a feature, the nodes it connects must have at least one node wit
 By eliminating leaf edges in the bipartite graph, we can greatly reduce the complexity of the graph,
 thus speeding up finding cycle from the bipartite graph.
 
-image::hip-0005/edge_trimming.png[]
+image::qip-0005/edge_trimming.png[]
 Figure 2. Trimming of edges which cannot be part of a cycle.footnote:[John Tromp, Cuckoo Cycle: a memory bound graph-theoretic proof-of-work, November 13, 2018. Available: https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf]
 
 . Step 1: node 0, node 3 and node 10 are one degree nodes, eliminating the edge (0,13), (6, 3) and the edge (10,9).
@@ -318,7 +318,7 @@ For crypto currencies, difficulty control must be scale in precisely controlled 
 that the ratio of M/N remain fixed, such as M/N = 1/2.
 The figure is probability trend of finding a cycle of length 42.
 
-image::hip-0005/probability.png[]
+image::qip-0005/probability.png[]
 Figure 3. probability trend.
 
 Thus in the actual use, it also adds a hash difficulty control similar to Bitcoin. The digest of the cycle nonces is obtained by a hash function,

@@ -10,12 +10,12 @@
 ## Abstract
 Now the Qitmeer block size is 124,the type of the time in header is `uint32`,we increase the size of the time,from `uint32` to `uint64`.
 
-image::hip-0003/block.png[]
+image::qip-0003/block.png[]
 
 ## Blake2b Algorithm
 Blake2b is a fast, secure hash function that is a modification of Blake algorithm. This cryptographic hash function is based on ChaCha stream cipher; designed by Daniel J. Bernstein. Blake2b is one of the algorithm based on Blake2 and the other one is Blake2s. The difference between them is Blake2b is optimized for 64-bit platforms whereas Blake2s is suitable for 8 to 32-bit platforms. Blake2 is faster and more secure than MD5, SHA-1, 2 and SHA-3 hash algorithms. To learn more about Blake2 hashing algorithm you may need to go through the official website.
 
-image::hip-0003/speedTest.png[]
+image::qip-0003/speedTest.png[]
 
 ## Motivation
 Because the Blake2b algorithm is implemented, the first few steps are based on the original data length, and the variable factor is modified to obtain M and V. Therefore, when we perform the opencl optimization algorithm, we perform the next calculation directly from M and V. Save generation time and save efficiency.
@@ -95,15 +95,15 @@ This is the core block change in private network ,so it will need remove the old
 
 ## Use Cases
 
-It run will in the private network,when mining new block,it don't occur any exceptions.
+It run will in the test network,when mining new block,it don't occur any exceptions.
 
 ## Implementation
 
-see https://github.com/Qitmeer/qitmeer/blob/master/core/types/block.go[Qitmeer]
+see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[qitmeer-lib]
 
 ## Test Cases
 
-In the git mining-dev repo,can test.
+see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[docker-test]
 
 ## See also
 

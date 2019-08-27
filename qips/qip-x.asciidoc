@@ -1,6 +1,6 @@
 This is the suggested template for new QIPs.
 
-In general, we use pull request number of QIP repostory as the QIP number, When opening a pull request to submit your QIP, please use an naming convention title in the filename, `hip-<hip_number>.asciidoc`.
+In general, we use pull request number of QIP repostory as the QIP number, When opening a pull request to submit your QIP, please use an naming convention title in the filename, `qip-<qip_number>.asciidoc`.
 
     QIP: <to be assigned>
     Title: <QIP title>
