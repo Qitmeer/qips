@@ -11,7 +11,7 @@ When the QIT main network goes online, the old QIT (erc20  token) will cease to 
 
 # Motivation
 
-complete erc20 hlc -> hlc mainet transformation;
+complete erc20 QIT -> QIT mainet transformation;
 
 # Specification
 
@@ -30,9 +30,9 @@ create solidity smart contract:
     pragma solidity ^0.4.24;
     contract AddressMapping { 
         mapping(address => bytes) balances;
-        function addAddress( bytes HLCMainAdd ) {
+        function addAddress( bytes QITMainAdd ) {
             require( balances[msg.sender].length == 0, 'One address can only correspond to one map');
-            balances[msg.sender] = HLCMainAdd;
+            balances[msg.sender] = QITMainAdd;
         }
         function getHCLaddress( address _owner ) view returns( bytes ) {
             return balances[_owner];
