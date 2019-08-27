@@ -95,15 +95,15 @@ This is the core block change in private network ,so it will need remove the old
 
 ## Use Cases
 
-It run will in the test network,when mining new block,it don't occur any exceptions.
+It run will in the private network,when mining new block,it don't occur any exceptions.
 
 ## Implementation
 
-see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[qitmeer-lib]
+see https://github.com/Qitmeer/qitmeer/blob/master/core/types/block.go[Qitmeer]
 
 ## Test Cases
 
-see https://github.com/Qitmeer/qitmeer-lib/blob/master/core/types/block.go[docker-test]
+In the git mining-dev repo,can test.
 
 ## See also
 
