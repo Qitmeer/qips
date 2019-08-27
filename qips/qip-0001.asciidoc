@@ -47,12 +47,12 @@ There are three types of QIP:
 
 The possible paths of the status of QIPs are as follows:
 
-image::hip-0001/hip_process.png[]
+image::qip-0001/qip_process.png[]
 
 
 ## Formats and Templates
 
-1. QIPs should be written in markdown format. Image files should be included in a subdirectory for that QIP. ex: [hip-0001.asciidoc](hip-0001.asciidoc)'s images files should be included in the [hips/hip-0001](hip-0001) subdirectory of the QIPs repository.
+1. QIPs should be written in markdown format. Image files should be included in a subdirectory for that QIP. ex: [qip-0001.asciidoc](qip-0001.asciidoc)'s images files should be included in the [qips/qip-0001](qip-0001) subdirectory of the QIPs repository.
 
 2. Each QIP must begin with an RFC 822 style header preamble. The headers must appear in the following order. Headers marked with "*" are optional and are described below. All other headers are required.
 
@@ -78,7 +78,7 @@ image::hip-0001/hip_process.png[]
     * **Test Cases**: Test cases for an implementation are mandatory in most case. it can choose to include links to test cases if applicable.
     * **See also**: The references links might list here
 
-4. A template file [hip-x.asciidoc](hip-x.asciidoc) is available to copy and modify for creating an new QIP.
+4. A template file [qip-x.asciidoc](qip-x.asciidoc) is available to copy and modify for creating an new QIP.
 
 ## History
 

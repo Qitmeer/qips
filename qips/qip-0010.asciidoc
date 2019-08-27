@@ -9,7 +9,7 @@
 
 By adopting online confirmation policy, a mining node must keep online and maintain good connections
 with other nodes in the mining network before a block gains confirmation since the node received
-that block. The online confirmation policy is described in link:hip-0008.asciidoc[another proposal
+that block. The online confirmation policy is described in link:qip-0008.asciidoc[another proposal
 before].
 
 If the mining node may become offline before the received node gains confirmation, the node should
@@ -24,7 +24,7 @@ recent delay diameter in the network), and does not rely on measurements of bloc
 
 The risk value is calculated by algorithm 3 in the SPECTRE paper.
 
-image::hip-0010/algorithm_3.jpg[]
+image::qip-0010/algorithm_3.jpg[]
 
 +++<img src="https://latex.codecogs.com/svg.latex?\overline{future}(x,G)"
 title="\overline{future}(x,G)" />+++ is defined as _future_ (_x,G_) &xcup; {_x_}.
@@ -85,7 +85,7 @@ Note that _x_^+^ is defined as max{0, _x_}.
 The function _f~post_mine~_ upper bounds the probability that the attacker will ever be able to create
 enough blocks so as to reverse the relation _x_ &pr; _y_.
 
-image::hip-0010/f_post_mine.svg[]
+image::qip-0010/f_post_mine.svg[]
 
 Note that Poiss(_a, b_) is defined as _e^-a^a^b^/b_!.
 
@@ -94,15 +94,15 @@ Note that Poiss(_a, b_) is defined as _e^-a^a^b^/b_!.
 The function _f~pre_pub~_ upper bounds the probability that we have underestimated the variable _j_,
 which upper bounds the number of honest blocks in _anticone(x,G)_.
 
-image::hip-0010/f_pre_pub.svg[]
+image::qip-0010/f_pre_pub.svg[]
 
 #### _f~post_pub~_
 
 The function _f~post_pub~_ upper bounds the probability that we have underestimated the number of
 honest blocks in _future(x,G)_.
 
-image::hip-0010/f_post_pub.svg[]
+image::qip-0010/f_post_pub.svg[]
 
 where
 
-image::hip-0010/f_distgap.svg[]
+image::qip-0010/f_distgap.svg[]
