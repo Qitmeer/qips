@@ -1,0 +1,211 @@
+    QIP: 9
+    Title: Block Reward Schedule and Transaction Fees Disign
+    Author: blocklee<block.lee121@gmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-05-06
+
+== Abstract
+
+**The rewards in a block** usually refer to the amount that miners may claim as a reward for creating a block. Equal to the sum of the block subsidy (newly available tokens) plus the transactions fees paid by transactions included in the block.  The block subsity is often regarded as a block reward schedule. The transactions fees is the amount remaining when the value of all outputs in a transaction are subtracted from all inputs in a transaction; the fee is paid to the miner who includes that transaction in a block.  Both are incentives for network participants.
+
+== The Economic Implications of Block Rewards
+
+The economic implications of block rewards mainly includes three aspects：
+
+- **Who pays for running the network?**
+
+Growth in total token supply imposes a cost on all token balances, since purchasing power of tokens is eroded over time. This effect is analogous to the well-known concept of “inflation tax” in conventional economic systems, and validators (both validators and block proposers) are the beneficiaries, since they collect the newly minted tokens in the form of block rewards.
+
+Both transactions fees and block rewards ensure that all those enjoying the benefits of the network contribute resources to running it. In a new system, the volume of retail transactions starts at a relatively low level, so a relatively high initial block reward rate support the network function. Block rewards will gradually decreases as the volume of retail transactions rises. In the long run, funding of network functions would then increasingly rely on the transaction fees, rather than block rewards.
+
+- **Incentives for Validators**
+
+In a PoW system, validators need to invest hardware resources and electricity costs to participate in the network. Rewarding validators with new tokens thus offers them a claim on the proceeds from seigniorage. The block rewards are expected returns and incentives for validators to contribute resources.
+
+- **User Adoption**
+
+A PoW system, which has well openess and equal opportunities for all people, is unlimited for users. Any one can invest hardware for hashrate and participate at any time, and you're on the same starting line as other miners. The expected revenue of the block rewards encourage users to participate in the network. To a certain extent, the value of token is supported by the miners' hardware resources and electricity cost. This potential value of such an open system may be magnetic for users.
+
+== Block Reward Schedule: Design Consideration
+
+Choosing a block reward schedule is an important question that is often addressed heuristically. A block reward is the rate of growth of the token pool and is of central interest. A key property of block rewards is that they add to the total token supply.
+
+According to the analysis of economic implications of block rewards, it may provides some guidance for how to design a block reward schedule. A block reward schedule ensure a long-term economic viability of network, which provides sufficient incentives for user adoption and participation of validators. Currently, the common practice is that keeping a relatively high level rate of block rewards at the launch of the network, and decays over time as the network matures.
+
+Many existing cryptocurrencies adopt a high initial rate of block rewards. This encourages participation of miners during the early period of network development. During this early period, block rewards plays a major incentive role on the running of network, since the volume of transaction fees is lower. To keeping the operation of system, it is necessary to reward proposer and validator nodes for their efforts during this early period.
+
+- **Current Reward Schedule**
+
+|===
+| |Total Amount|Block Reward Schedule|Initial Block Reward|Block rate|Difficulty period
+
+|BTC
+|21 million
+|halving per 210000 blocks
+|50
+|10 min
+|2016 blocks
+
+
+|BCH
+|21 million
+|halving per 210000 blocks
+|50
+|10 min
+|2016 blocks; if MTP time of past 6 blocks > 12h, reduce 20%
+
+|LTC
+|84 million
+|halving per 840000 blocks
+|50
+|2.5 min
+| -
+
+|ETC
+|210 million
+|reduce 20% per 5000000blocks
+|5
+|15s
+| -
+
+|ETH
+|unlimited
+|5->3 at block 4370000
+|5
+|15s
+| -
+
+|ZEC
+|21 million
+|halving per 840000 blocks
+|12.5
+|2.5 min
+| -
+
+|XZC
+|21 million
+|halving per 210000 blocks
+|50
+|10min
+| -
+
+|DASH
+|18.9 million
+|fixed (miner 45%, main node 45%, budget system 10% )
+|3.6
+|2.5 min
+|-
+
+|XMR
+|unlimited
+|smooth decay curve(lower boundary 0.6)
+|keep 0.6 after 18132000 blocks
+|60s
+| -
+
+|link:https://docs.decred.org/advanced/blockchain-parameters/[DCR]
+|21 million
+|decay multiplier 100/101 ; 60%PoW, 30%PoS, 10%devlop subsidy
+|31.2
+|5 min
+|change block reward per 6144 blocks
+
+|BTM
+|2.1 billion
+|halving per 840000 blocks
+|412.5
+|2.5 min
+|2016 blocks
+
+|SC
+|44.55 billion
+|r=300000-n, n=1,2,...,270000;  r=30000, n>270000.
+|300,000
+|10 min
+| -
+
+|===
+
+The table above shows that ‘Halving’ is used in Bitcoin and many of its derivatives, whereas Monero, Siacoin use ‘Smooth decay’, and others use ‘Phase decay’, like ETC, DCR, only DASH uses a fixed reward.
+
+image::hip-0009/Block_Reward.png[Figure-2]
+[.small]##Figure 2: Caricatures of common block reward functions.## <<prism>>
+
+‘Halving’ refers to reward schedules that maintain a constant reward over a long period (e.g. years), and periodically reduce the block reward by half. ‘Smooth decay’, used in Monero, gives a smooth approximation of the reward function in Bitcoin. In Siacoin, block reward schedule decreases linearly. Notice that the smooth decay curve is lower bounded by a fixed minimum block reward, Monero is 0.6, and Siacoin is 30000. ‘Phase decay’, used in ETC and DCR, reduces reward periodically with a constant decay multiplier.
+
+- **Design Consideration**
+
+One of an important trade-offs involved in choosing a block reward function may be equitability. Equitability means that a party that begins with a certain fraction of stake cannot unduly amplify its fraction of stake simply by participating in block proposal or validation. But in a PoW system, this will not be a problem.
+The research of Giulia et al. show that no block reward function can achieve the same degree of equitability as PoW <<prism>>.
+
+We assume the total reward R dispensed in time period T is fixed, so latexmath:[\sum_{n=1}^{T} r(n)=R]. Where r(n) is the block reward function of block number n, which is freshly-minted at each time step.
+
+‘Halving’ used in Bitcoin reflects a constant block reward function, like this:
+
+\begin{equation}
+r_{c}(n) :=\frac{R}{T}
+\end{equation}
+
+‘Smooth decay’ and ‘Phase decay’ reflect different geometric reward function. Such as:
+
+In Siacoin:r(n) := 300000-n for n =1,2,...,270000, and r(n) := 30000 for n>270000.
+
+In ETC: r(n) = 5 * 0.8^E, where E= (n-1) // 5000000 (// denotes integer division).
+
+Theoretically, we can choose any block reward schedule r(n) that respects the total reward constraint of R.
+
+
+
+== Transaction Fees Design
+
+Transaction fees are drawn from users’ transactions and awarded to nodes who process that node’s transactions, as an another class of incentives.
+
+**How to choose transaction fees, it is a primary question in cryptocurrencies**. To select the transaction fees, need to consider two questions:
+
+* The ﬁrst is how to choose the magnitude of transaction fees; namely, should fees be proposed by users, imposed by the system, or some combination thereof? Typical considerations include scaling fees with the transaction’s bytesize, monetary value, or both.
+
+* The second question is how to allocate fees once they are collected.
+
+=== Current Fee Management
+
+Most existing cryptocurrencies allow users to set their own fees; validators choose whether to process a given transaction based on whether the offered transaction fee is high enough. The node who includes a transaction in a block, reaps the full transaction fee as a reward. A given transaction can be re-broadcast by raising fees when not included in a block by any miner after some period of time. Although some cryptocurrencies place a lower bounds,  in practice, users tend to choose substantially higher transaction fees. May be a natural approach, and widely adopted. It cause three negative effects: high congestion, high fees, and incentive incompatibility.
+
+The current fee mechanism is actually a design that incentive congestion. Validators are incentived to choose which transactions to confirm based on transaction fees, users are forced to pay to bypass congestion. An user-selected fee structure, in which validators can choose which transactions to include based on fees, means an unbounded fees, leading to volatility and uncertainty on fees.
+
+Carlsten et al. show that in the absence of inflation, rational Bitcoin miners are no longer incentivized to mine on the longest chain <<Carlsten>>.
+
+image::hip-0009/Figure-1.png[Figure 1]
+[.small]##Figure 1: One possible state of the block chain and two possible actions a miner could take##.
+
+When choosing between forks, miners are incentivized to adopt one with fewer transactions in the final block, since such forks leave more transaction fees for the next miner. By exploiting this observation, selfish miners can convince other miners to build on side chains. This is the incentive incompatibility result from current fee mechanism.
+
+=== Design considerations
+
+There are two main considerations when design transaction fee structure: 1) whether fees are chosen algorithmically or selected by users，2）How allocate transaction fees to users. The table below shows the design space for transaction fee mechanisms,
+
+|===
+|   | Miner gets full transaction fees |Delcoupled rewards
+
+|User-selected fees
+|Bitcoin, Ethereum
+|Cardano, Fruitchains
+
+|Algorithmic fees
+|
+|
+|===
+
+Currently, although several cryptocurrencies impose algorithmic lower bounds on fees, but allow users to offer higher fees if desired. In other words, no blockchain systems today chooses transaction fees purely algorithmically.
+
+
+
+
+
+[bibliography]
+== References
+
+- [[[Carlsten,1]]] Miles Carlsten, Harry Kalodner, S Matthew Weinberg, and Arvind Narayanan. link:http://randomwalker.info/publications/mining_CCS.pdf[On the instability of bitcoin without the block reward]. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security, pages 154–167. ACM, 2016.
+
+- [[[prism,2]]]Giulia Fanti and Pramod Viswanath. Decentralized Payment Systems Principles and Design, pages 115-138. The Distributed Technology Research Foundation, January 16, 2019.
+

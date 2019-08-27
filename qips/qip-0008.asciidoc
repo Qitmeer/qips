@@ -1,0 +1,114 @@
+    QIP: 0008
+    Title: The Numerical Way of Calculating Online Confirmation Times in SPECTRE
+    Author: Zhixiang Zhu <zzxiang21cn@hotmail.com>
+    Category: Core
+    Status: Draft
+    Created: 2019-05-05
+
+## Motivation
+
+Qitmeer adopts PHANTOM and SPECTRE as the core concensus protocol. However, the SPECTRE paper is hard to
+read and understand from developers' or implementors' perspectives. Therefore, it is not easy to
+find out the explicit algorithm or formula to calculate the exact confirmation time of a block. This
+proposal tries to solve the problem by focusing on describing the method to calculate confirmation
+times.
+
+The SPECTRE paper provides two ways of accepting (confirming) a block, i.e. the offline way and the
+online way. The online way is more straightforward. The simulation results of the paper also adopted
+the online way. This proposal adopts the same way.
+
+## Specification
+
+### Online confirmation and offline confirmation
+
+By adopting online confirmation policy, a mining node must keep online and maintain good connections
+with other nodes in the mining network before a block gains confirmation since the node received
+that block. This assumption is highly reasonable for many practical scenarios, e.g., a cashier
+serving a continuous line of customers. The main benefit of the online version is that it relies on
+a tighter analysis, and therefore accepts transactions slightly faster.
+
+If the mining node may become offline before the received node gains confirmation, the node should
+adopt offline policy to confirm the acception of the block. The offline policy will be described in
+link:hip-0010.asciidoc[another proposal].
+
+### How to calculate online confirmation time
+
+When a node _v_ receives a block _x_, it loops to calculate a risk value of the block with Algorithm
+7 in the SPECTRE paper. It accepts the block when the risk is smaller than a given threshold
+_&#1013;_. The online confirmation time of block _x_ in node _v_ is the time since _x_ is received
+by _v_ until _x_ is accpeted by _v_.
+
+image::hip-0008/algorithm_7.png[]
+
+Figure 1. Algorithm for checking whether to accept a block. Correction: The _G~x~_ at the end of
+line 4 should be _G~t~^v^_.
+
+The definition of _risk_hidden(T, g)_ in the algorithm appears in formula (45)-(46) in the SPECTRE
+paper. It upper bounds the probability that block _x_ is preceded by some attacker's
+block _y_ in pairwise order, where _y_ is published later than _x_. The formula is defined as
+follows:
+
+image::hip-0008/risk_hidden.svg[]
+
+Figure 2. The definition of _risk_hidden_. 
+
+where
+
+- _d_ is the upper bound on the recent delay diameter in the network,
+- _&alpha;_ is the attacker’s relative computational power,
+- _&lambda;_ is the block creation rate,
+- _Poiss(a, b)_ is defined as _e^-a^a^b^/b_!,
+- _x_^+^ is defined as max{0, _x_},
+- and _&pi;_ is the stationary distribution which we will explain below.
+
+_&pi;_ is actually a vector. Informally, it is the statistical distribution of how much more
+blocks attacker nodes have created than honest nodes have created since block _x_ is published,
+which is called gap in the SPECTRE paper. _&pi;(l)_ is the probability that the value of gap is
+_l_.
+
+The value of gap changes as time goes on, forming a random walk which induces an ergodic Markov
+chain. Theorietically, it could be any integer ranging from negative infinity to positive infinity.
+In the worst case, it is always non-negative. Only when the gap is non-negative is there a risk for
+block _x_ to be received less or equal votes than some attacker's block _y_ which is published later
+than _x_, so that _y_ precedes _x_ in pairwise order. This is why in the formula of _risk_hidden_
+the index _l_, i.e.  the value of gap, starts out equal to 0 instead of negative infinity.
+
+Since the random walk of _l_ induces an ergodic Markov chain, _l_ has a unique stationary
+distribution, which is _&pi;_. In order to calculate _&pi;_, we need to calculate the transition
+probability matrix of the random walk.
+
+Suppose that the value of _l_ ranges from 0 to _N_, where _N_ is infinity in the above definition.
+We define the transition probability matrix as an _N_ by _N_ matrix _T_. We also denote by _&delta;_
+:= _&alpha; &middot; &lambda; &middot; d_. For all 1 &le; _l_ &lt; _N_ - 1, _T_~_l_-1,_l_~ = 1 -
+&alpha;, _T_~_l_+1,l~ = &alpha;, and for _l_ = _N_ - 1: _T_~_l_-1,_l_~ = 1 - &alpha;, _T_~_l_,_l_~ =
+&alpha;.  The first column of the matrix is defined by: _T_~0,0~ := (1 - _&alpha;_) &middot;
+_e^-&delta;^_, _T_~1,0~ = _e^-&delta;^ &middot; &alpha;_ + _e^-&delta;^ &middot; &delta;_, for 1
+&lt; _l_ &lt; _N_ - 1: _T_~_l_,0~ = _e^-&delta;^ &middot; &delta;^l^/l_!, and _T_~_N_-1,0~ = 1 -
+_e^-&delta;^_ &middot; (_&delta;_^0^/0! &plus; _&delta;_^1^/1! + ... + _&delta;_^_N_-2^/(_N_-2)!).
+_&pi;_ is the eigenvector of _T_ corresponding to the eigenvalue 1, where _&pi;(l)_ &geq; 0 and the
+sum of _&pi;_ is 1.
+
+In practice, _&pi;(l)_ is very close to zero when _l_ is very large, so we can just pick some _N_
+&Gt; 1 instead of infinity. Therefore, the formula of _risk_hidden_ becomes
+
+image::hip-0008/risk_hidden2.svg[]
+
+Figure 3. The definition of _risk_hidden_ where _l_ ranges from 0 to _N_. 
+
+It is recommended to calculate _&pi;_ with some well-tested Markov chain library such as the
+https://github.com/spedygiorgio/markovchain[_markovchain_] package in R.
+
+The sum of series with index _m_ seems to be a sum of infinite series. However, for _m > g - l_ we
+have (_g - l - m_)^+^ = 0 and +++<img
+src="https://latex.codecogs.com/svg.latex?\inline&space;(\frac{\alpha}{1-\alpha})^{(g-l-m)^+}=1"
+title="(\frac{\alpha}{1-\alpha})^{(g-l-m)^+}=1" />+++.
+
+Therefore, the formula of _risk_hidden_ can be further converted as blelow, where _Poiss~cdf~_ is
+the cumulative distribution function (CDF) of Poisson distribution.
+
+image::hip-0008/risk_hidden_converted.svg[]
+
+Figure 4. The converted formula _risk_hidden_.
+
+With the converted formula we are able to calculate _risk_hidden_ in numerical way. We provide our
+implementation with R: https://github.com/Qitmeer/spectre-poc/blob/master/risk_hidden.R
