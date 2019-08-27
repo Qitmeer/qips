@@ -1,4 +1,4 @@
-    HIP: 12
+    QIP: 12
     Title:  destroy & mapping v1
     Author: zhang yi <zhang_btc@outlook.com>
     Category: Application
@@ -7,7 +7,7 @@
 
 # Abstract
 
-When the HLC main network goes online, the old HLC (erc20  token) will cease to be used and the holder will obtain the HLC on the main network through the map of the main network.
+When the QIT main network goes online, the old QIT (erc20  token) will cease to be used and the holder will obtain the QIT on the main network through the map of the main network.
 
 # Motivation
 
@@ -15,11 +15,11 @@ complete erc20 hlc -> hlc mainet transformation;
 
 # Specification
 
-Destroy: send erc20 HLC to the ***black hole address***;
+Destroy: send erc20 QIT to the ***black hole address***;
 
-Mapping: monitor the address of the black hole on the main chain, issue mainet HLC to the mapping address according to the budget ratio after receiving erc20 HLC;
+Mapping: monitor the address of the black hole on the main chain, issue mainet QIT to the mapping address according to the budget ratio after receiving erc20 QIT;
 
-image::./hip-0012/mapping.jpg[mappingprocess]
+image::./qip-0012/mapping.jpg[mappingprocess]
 
 # Implementation
 
@@ -42,10 +42,10 @@ create solidity smart contract:
 ### 2. Call addAddress to add the mapping address;
 
     0x14723a09acff6d2a60dcdf7aa4aff308fddc160c -> 0x44d959afb6db4ad730a6e2c0daf46ceeb98c53a0
-    // ETH -> HLC publickeyhash
+    // ETH -> QIT publickeyhash
     0x14723a09acff6d2a60dcdf7aa4aff308fddc160c -> RmCYoUMqKZopUkai2YhUFHR9UeqjeyjTAgW
 
-### 3. Erc20 HLC send to `0x0000000000000000000000000000000000000000`;
+### 3. Erc20 QIT send to `0x0000000000000000000000000000000000000000`;
 
 
     MyContract.methods.transfer(
@@ -55,4 +55,4 @@ create solidity smart contract:
 
 ### 4. Oracle listens to the transfer
 
-After listening to the transfer, query the mapped address through the AddressMapping contract, and transfer HLC main to the mapped address according to the specified proportion to complete the token exchange.
+After listening to the transfer, query the mapped address through the AddressMapping contract, and transfer QIT main to the mapped address according to the specified proportion to complete the token exchange.

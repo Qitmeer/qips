@@ -29,7 +29,7 @@ a tighter analysis, and therefore accepts transactions slightly faster.
 
 If the mining node may become offline before the received node gains confirmation, the node should
 adopt offline policy to confirm the acception of the block. The offline policy will be described in
-link:hip-0010.asciidoc[another proposal].
+link:qip-0010.asciidoc[another proposal].
 
 ### How to calculate online confirmation time
 
@@ -38,7 +38,7 @@ When a node _v_ receives a block _x_, it loops to calculate a risk value of the 
 _&#1013;_. The online confirmation time of block _x_ in node _v_ is the time since _x_ is received
 by _v_ until _x_ is accpeted by _v_.
 
-image::hip-0008/algorithm_7.png[]
+image::qip-0008/algorithm_7.png[]
 
 Figure 1. Algorithm for checking whether to accept a block. Correction: The _G~x~_ at the end of
 line 4 should be _G~t~^v^_.
@@ -48,7 +48,7 @@ paper. It upper bounds the probability that block _x_ is preceded by some attack
 block _y_ in pairwise order, where _y_ is published later than _x_. The formula is defined as
 follows:
 
-image::hip-0008/risk_hidden.svg[]
+image::qip-0008/risk_hidden.svg[]
 
 Figure 2. The definition of _risk_hidden_. 
 
@@ -91,7 +91,7 @@ sum of _&pi;_ is 1.
 In practice, _&pi;(l)_ is very close to zero when _l_ is very large, so we can just pick some _N_
 &Gt; 1 instead of infinity. Therefore, the formula of _risk_hidden_ becomes
 
-image::hip-0008/risk_hidden2.svg[]
+image::qip-0008/risk_hidden2.svg[]
 
 Figure 3. The definition of _risk_hidden_ where _l_ ranges from 0 to _N_. 
 
@@ -106,7 +106,7 @@ title="(\frac{\alpha}{1-\alpha})^{(g-l-m)^+}=1" />+++.
 Therefore, the formula of _risk_hidden_ can be further converted as blelow, where _Poiss~cdf~_ is
 the cumulative distribution function (CDF) of Poisson distribution.
 
-image::hip-0008/risk_hidden_converted.svg[]
+image::qip-0008/risk_hidden_converted.svg[]
 
 Figure 4. The converted formula _risk_hidden_.
 

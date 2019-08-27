@@ -1,8 +1,0 @@
-\begin{aligned}
-& f_{post\_mine}(n_x,g,j,l,M) \\
-=& 
-\sum_{k=0}^\infty \text{Poiss}((2-\alpha) \cdot d \cdot \lambda, k) \cdot \sum_{h=0}^\infty \text{Poiss}(d \cdot (1-\alpha) \cdot \lambda, h) \cdot \\
-  & \left( \sum_{m'=M}^\infty \binom{n_x + j + h + m' - 1}{m'} \cdot (1 - \alpha)^{n_x + j + h} \cdot \alpha^{m'} \right)^{-1} \cdot \\
-& \sum_{m=M}^\infty \binom{n_x + j + h + m - 1}{m} \cdot (1 - \alpha)^{n_x+j+h} \cdot \alpha^m \cdot \\
-& \left( \frac{\alpha}{1-\alpha} \right )^{(g-2 \cdot h - k -j -l - (m - M))^+} .
-\end{aligned}

@@ -129,7 +129,7 @@ Many existing cryptocurrencies adopt a high initial rate of block rewards. This 
 
 The table above shows that ‘Halving’ is used in Bitcoin and many of its derivatives, whereas Monero, Siacoin use ‘Smooth decay’, and others use ‘Phase decay’, like ETC, DCR, only DASH uses a fixed reward.
 
-image::hip-0009/Block_Reward.png[Figure-2]
+image::qip-0009/Block_Reward.png[Figure-2]
 [.small]##Figure 2: Caricatures of common block reward functions.## <<prism>>
 
 ‘Halving’ refers to reward schedules that maintain a constant reward over a long period (e.g. years), and periodically reduce the block reward by half. ‘Smooth decay’, used in Monero, gives a smooth approximation of the reward function in Bitcoin. In Siacoin, block reward schedule decreases linearly. Notice that the smooth decay curve is lower bounded by a fixed minimum block reward, Monero is 0.6, and Siacoin is 30000. ‘Phase decay’, used in ETC and DCR, reduces reward periodically with a constant decay multiplier.
@@ -175,7 +175,7 @@ The current fee mechanism is actually a design that incentive congestion. Valida
 
 Carlsten et al. show that in the absence of inflation, rational Bitcoin miners are no longer incentivized to mine on the longest chain <<Carlsten>>.
 
-image::hip-0009/Figure-1.png[Figure 1]
+image::qip-0009/Figure-1.png[Figure 1]
 [.small]##Figure 1: One possible state of the block chain and two possible actions a miner could take##.
 
 When choosing between forks, miners are incentivized to adopt one with fewer transactions in the final block, since such forks leave more transaction fees for the next miner. By exploiting this observation, selfish miners can convince other miners to build on side chains. This is the incentive incompatibility result from current fee mechanism.

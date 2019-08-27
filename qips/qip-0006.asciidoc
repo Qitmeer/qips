@@ -1,5 +1,5 @@
     QIP: 6
-    Title: Qitmeer-compatible-Across-Chain
+    Title: Qitmeer-compatible-Cross-Chain
     Author: zhang yi <mz467348631@outlook.com>
     Category: Application
     Status: Draft
@@ -34,7 +34,7 @@ Qitmeer's transaction model is done using an OP script similar to BTC and is wel
 * Bob holds `QIT`, he needs `QIT`-> `BTC`;
 * The transaction is initiated by Alice;
 
-image::./hip-0006/process.jpg[]
+image::./qip-0006/process.jpg[]
 
 1、Alice Create the unlock key:
 
